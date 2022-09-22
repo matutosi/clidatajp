@@ -1,5 +1,5 @@
-## code to prepare `station_links` dataset goes here
   # use_data_raw("station_links")  # Generate this file
+## code to prepare `station_links` dataset goes here
 
 library(tidyverse)
 station_links <-
