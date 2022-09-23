@@ -3,7 +3,6 @@
 \name{download_links}
 \alias{download_links}
 \alias{download_area_links}
-\alias{download_links}
 \title{download links for areas, countries and stations}
 \usage{
 download_area_links(

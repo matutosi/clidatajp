@@ -2,7 +2,6 @@
 % Please edit documentation in R/download_climate.R
 \name{download_climate}
 \alias{download_climate}
-\alias{download_climate}
 \title{download climate data of the world}
 \usage{
 download_climate(url)
