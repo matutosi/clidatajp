@@ -3,8 +3,8 @@ Title: Data from Japan Meteorological Agency
 Version: 0.1.0.9000
 Authors@R: 
     person("Toshikazu", "Matsumura", , "matutosi@gmail.com", role = c("aut", "cre"))
-Description: Includes climate data from Japan Meteorological Agency (JMA).
-    Can download climate data from JMA. 
+Description: Includes climate data from Japan Meteorological Agency ('JMA').
+    Can download climate data from 'JMA'. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
