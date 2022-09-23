@@ -25,7 +25,7 @@ and 11 variable:
 world_climate
 }
 \description{
-Climate data donwloaded from Japan Meteorological Agency web pages.
+Climate data downloaded from Japan Meteorological Agency web pages.
 URLs of each station are listed in data(station_links).
 https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 }

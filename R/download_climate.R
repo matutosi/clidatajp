@@ -1,6 +1,6 @@
-#' Donwload climate data of the world
+#' download climate data of the world
 #' 
-#' For polite scraping, 5 sec interval is set in donwload_climate(), 
+#' For polite scraping, 5 sec interval is set in download_climate(), 
 #' it takes over 5 hours to get climate data of all stations. 
 #' Please use existing links by "data(world_climate)", 
 #' if you do not need to renew climate data. 
@@ -23,14 +23,14 @@
 #' climate <- list()
 #' for(i in seq_along(station_links)){
 #'   print(stringr::str_c(i, " / ", length(station_links)))
-#'   climate[[i]] <- donwload_climate(station_links[i])
+#'   climate[[i]] <- download_climate(station_links[i])
 #' }
 #' world_climate <- dplyr::bind_rows(climate)
 #' world_climate
 #' }
 #' 
 #' @export
-donwload_climate <- function(url){
+download_climate <- function(url){
   sleep()
   html <- 
     url %>%

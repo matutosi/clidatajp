@@ -2,15 +2,15 @@
 % Please edit documentation in R/download_links.R
 \name{download_links}
 \alias{download_links}
-\alias{donwload_area_links}
-\alias{donwload_links}
-\title{Donwload links for areas, countries and stations}
+\alias{download_area_links}
+\alias{download_links}
+\title{download links for areas, countries and stations}
 \usage{
-donwload_area_links(
+download_area_links(
   url = "https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/"
 )
 
-donwload_links(url)
+download_links(url)
 }
 \arguments{
 \item{url}{A String to specify target html.}
@@ -20,7 +20,7 @@ donwload_links(url)
 }\if{html}{\out{</div>}}
 }
 \description{
-For polite scraping, 5 sec interval is set in donwload_links(),
+For polite scraping, 5 sec interval is set in download_links(),
 it takes about 15 minutes to get all station links.
 Please use existing links by "data(station_links)",
 if you do not need to renew links.
@@ -30,17 +30,17 @@ https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 \examples{
 # If you want links for all countries and all sations, remove head().
 library(tidyverse)
-area_links <- donwload_area_links()
+area_links <- download_area_links()
 station_links <- NULL
 area_links <- head(area_links)  # for test
 \dontrun{
 for(i in seq_along(area_links)){
     print(stringr::str_c("area: ", i, " / ", length(area_links)))
-    country_links <- donwload_links(area_links[i])
+    country_links <- download_links(area_links[i])
     country_links <- head(country_links)  # for test
     for(j in seq_along(country_links)){
         print(stringr::str_c("    country: ", j, " / ", length(country_links)))
-        station_links <- c(station_links, donwload_links(country_links[j]))
+        station_links <- c(station_links, download_links(country_links[j]))
     }
 }
 station_links <- tibble::tibble(url = station_links)

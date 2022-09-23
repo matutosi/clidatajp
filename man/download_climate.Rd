@@ -2,10 +2,10 @@
 % Please edit documentation in R/download_climate.R
 \name{download_climate}
 \alias{download_climate}
-\alias{donwload_climate}
-\title{Donwload climate data of the world}
+\alias{download_climate}
+\title{download climate data of the world}
 \usage{
-donwload_climate(url)
+download_climate(url)
 }
 \arguments{
 \item{url}{A String to specify target html.}
@@ -14,7 +14,7 @@ donwload_climate(url)
 A tibble including climate and station information.
 }
 \description{
-For polite scraping, 5 sec interval is set in donwload_climate(),
+For polite scraping, 5 sec interval is set in download_climate(),
 it takes over 5 hours to get climate data of all stations.
 Please use existing links by "data(world_climate)",
 if you do not need to renew climate data.
@@ -34,7 +34,7 @@ station_links <-
 climate <- list()
 for(i in seq_along(station_links)){
   print(stringr::str_c(i, " / ", length(station_links)))
-  climate[[i]] <- donwload_climate(station_links[i])
+  climate[[i]] <- download_climate(station_links[i])
 }
 world_climate <- dplyr::bind_rows(climate)
 world_climate

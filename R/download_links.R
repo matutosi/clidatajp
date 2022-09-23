@@ -1,6 +1,6 @@
-#' Donwload links for areas, countries and stations
+#' download links for areas, countries and stations
 #' 
-#' For polite scraping, 5 sec interval is set in donwload_links(), 
+#' For polite scraping, 5 sec interval is set in download_links(), 
 #' it takes about 15 minutes to get all station links. 
 #' Please use existing links by "data(station_links)", 
 #' if you do not need to renew links. 
@@ -13,17 +13,17 @@
 #' @examples
 #' # If you want links for all countries and all sations, remove head().
 #' library(tidyverse)
-#' area_links <- donwload_area_links()
+#' area_links <- download_area_links()
 #' station_links <- NULL
 #' area_links <- head(area_links)  # for test
 #' \dontrun{
 #' for(i in seq_along(area_links)){
 #'     print(stringr::str_c("area: ", i, " / ", length(area_links)))
-#'     country_links <- donwload_links(area_links[i])
+#'     country_links <- download_links(area_links[i])
 #'     country_links <- head(country_links)  # for test
 #'     for(j in seq_along(country_links)){
 #'         print(stringr::str_c("    country: ", j, " / ", length(country_links)))
-#'         station_links <- c(station_links, donwload_links(country_links[j]))
+#'         station_links <- c(station_links, download_links(country_links[j]))
 #'     }
 #' }
 #' station_links <- tibble::tibble(url = station_links)
@@ -31,7 +31,7 @@
 #' }
 #' 
 #' @export
-donwload_area_links <- function(
+download_area_links <- function(
   url = "https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/"){
   href <- 
     url %>%
@@ -45,7 +45,7 @@ donwload_area_links <- function(
 
 #' @rdname download_links
 #' @export
-donwload_links <- function(url){
+download_links <- function(url){
   sleep()
   href <- 
     url %>%
