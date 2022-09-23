@@ -10,6 +10,9 @@ NULL
 #' @importFrom utils data
 NULL
 
+#' @importFrom utils head
+NULL
+
 #' Pipe operator
 #' 
 #' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
