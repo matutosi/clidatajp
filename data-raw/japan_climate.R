@@ -107,6 +107,7 @@ unlink(stringr::str_c(".", exdir), recursive = TRUE)
 japan_climate <-
   dplyr::bind_rows(new_climate, old_climate) %>%
   dplyr::left_join(station) %>%
-  dplyr::select(-c(lat_deg, lat_min, lon_deg, lon_min))
+  dplyr::select(-c(lat_deg, lat_min, lon_deg, lon_min)) %>%
+  dplyr::mutate_if(is.character, stringi::stri_escape_unicode)
 
 usethis::use_data(japan_climate, overwrite = TRUE)

@@ -26,6 +26,9 @@ You can use different function for download each component.
 
 # Links for climate data and station information
 
+I recommend to use existing data, 
+which are already downloaded and cleaned up. 
+
 When you want to download links for climate data, 
 use download_area_links() and download_links(). 
 download_area_links() returns links for 6 areas. 
@@ -71,14 +74,26 @@ station_links
 
 # Climate data
 
+I recommend to use existing data, 
+which are already downloaded and cleaned up. 
+
+When you want to know how to prepare "data(japan_climate)", 
+please check url shown below. 
+
+https://github.com/matutosi/clidatajp/blob/main/data-raw/japan_climate.R
+
 For polite scraping, 5 sec interval is set in download_climate(), 
-it takes over 5 hours to get climate data of all stations 
+it takes over 5 hours to get world climate data of all stations 
 because of huge amount of data (3444 stations). 
-Please use existing links by "data(world_climate)", 
+Please use existing data by "data(world_climate)", 
 if you do not need to renew climate data. 
 
 ```{r climate_data}
   # existing data
+data(japan_climate)
+japan_climate %>%
+  dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
+
 data(world_climate)
 world_climate %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)

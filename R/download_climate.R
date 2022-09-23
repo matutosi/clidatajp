@@ -88,7 +88,7 @@ clean_station <- function(station){
     stringr::str_replace_all("minus"          , "-"          ) %>%
     tibble::as_tibble() %>%
     tidyr::separate(.data[["value"]], into = cols, sep = ":") %>%
-      # to avoid dupulication (two or more stations have identical name)
+      # to avoid duplication (two or more stations have identical name)
     dplyr::mutate("station" := 
                   stringr::str_c(.data[["station"]], "_", .data[["country"]]))
   return(cleaned_station)

@@ -28,7 +28,7 @@ You can see climate data directly from 'JMA' ( https://www.data.jma.go.jp/gmd/cp
 
 ``` r
   # CRAN
-install.packages("moranajp")
+install.packages("clidatajp")
 
   # development
   # install.packages("devtools")
@@ -49,6 +49,10 @@ station_links %>%
   dplyr::mutate("station" := stringi::stri_unescape_unicode(station))
 
   # show climate data
+data(japan_climate)
+japan_climate %>%
+  dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
+
 data(world_climate)
 world_climate %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)

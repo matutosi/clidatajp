@@ -7,7 +7,7 @@
 \format{
 A data frame with  3444 rows and 3 variable:
 \describe{
-\item{no           }{Id number}
+\item{no           }{Station no}
 \item{station      }{Station information including no, month, temperature, precipitation, station, country, latitude, NS, longitude, WE, altitude. The information is NOT cleaned Row information downloaded from each URL. Escaped by stringi::stri_escape_unicode().}
 \item{url         }{URL of station.}
 }

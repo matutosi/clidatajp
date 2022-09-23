@@ -18,7 +18,7 @@ from ‘JMA’ ( <https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/> ).
 
 ``` r
   # CRAN
-install.packages("moranajp")
+install.packages("clidatajp")
 
   # development
   # install.packages("devtools")
