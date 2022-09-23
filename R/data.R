@@ -32,7 +32,7 @@
 #' \describe{
 #'   \item{no           }{Id number}
 #'   \item{station      }{Station information including no, month, temperature, precipitation, station, country, latitude, NS, longitude, WE, altitude. The information is NOT cleaned Row information donwloaded from each URL. Escaped by stringi::stri_escape_unicode().}
-#'   \item{link         }{URL of station.}
+#'   \item{url         }{URL of station.}
 #' }
 #' @examples
 #' library(tidyverse)

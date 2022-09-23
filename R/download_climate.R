@@ -1,4 +1,4 @@
-#' Donwload climate data of the world. 
+#' Donwload climate data of the world
 #' 
 #' For polite scraping, 5 sec interval is set in donwload_climate(), 
 #' it takes over 5 hours to get climate data of all stations. 
@@ -7,9 +7,9 @@
 #' You can see web page as below. 
 #' https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 #' 
-#' @name donwload_climate
-#' @param url  A String to specify target html.
-#' @return     a
+#' @name download_climate
+#' @param url      A String to specify target html.
+#' @return  A tibble including climate and station information.
 #' @examples
 #' # If you want all climate data, remove head().
 #' library(tidyverse)
@@ -19,6 +19,7 @@
 #'   head() %>%
 #'   `$`("url")
 #' 
+#' \dontrun{
 #' climate <- list()
 #' for(i in seq_along(station_links)){
 #'   print(stringr::str_c(i, " / ", length(station_links)))
@@ -26,12 +27,11 @@
 #' }
 #' world_climate <- dplyr::bind_rows(climate)
 #' world_climate
+#' }
 #' 
 #' @export
 donwload_climate <- function(url){
   sleep()
-
-url <- station_links[i]
   html <- 
     url %>%
     rvest::read_html()
@@ -55,30 +55,41 @@ url <- station_links[i]
   return(combined)
 }
 
-#' @rdname download_climate
+#' Clean up station information
+#' 
+#' Helper function for download_climate().
+#' @param station  A String of station information.
+#' @return  A tibble including station information.
+#' @examples
+#' data(station_links)
+#' station_links %>%
+#'   head() %>%
+#'   `$`("station") %>%
+#'   stringi::stri_unescape_unicode() %>%
+#'   clean_station()
+#' 
 #' @export
-clean_station <- function(text){
+clean_station <- function(station){
   cols <- 
       c("station", "country", "latitude", "NS", "longitude", "WE", "altitude")
   sep <- 
     "\\u5ea6\\uff1a|\\u00b0" %>%
     stringi::stri_unescape_unicode()
   sep <- stringr::str_c("\\s+.", sep)
-  cleaned_text <- 
-    text %>%
-    map(stringr::str_replace_all, "\\s+"           , " "          ) %>%
-    map(stringr::str_replace_all, "- \\(m\\)"      , "NA"         ) %>%
-    map(stringr::str_replace_all, "-(\\d+) \\(m\\)", "minus\\1"   ) %>%
-    map(stringr::str_replace_all, " \\(m\\)"       , ""           ) %>%
-    map(stringr::str_replace_all, "(.+)-(.+)-(.+)" , "\\1_\\2:\\3") %>%
-    map(stringr::str_replace_all, " - "            , ":"          ) %>%
-    map(stringr::str_replace_all, sep              , ":"          ) %>%
-    map(stringr::str_replace_all, "minus"          , "-"          ) %>%
-    map(tibble::as_tibble) %>%
-    map(tidyr::separate, .data[["value"]], into = cols, sep = ":") %>%
+  cleaned_station <- 
+    station %>%
+    stringr::str_replace_all("\\s+"           , " "          ) %>%
+    stringr::str_replace_all("- \\(m\\)"      , "NA"         ) %>%
+    stringr::str_replace_all("-(\\d+) \\(m\\)", "minus\\1"   ) %>%
+    stringr::str_replace_all(" \\(m\\)"       , ""           ) %>%
+    stringr::str_replace_all("(.+)-(.+)-(.+)" , "\\1_\\2:\\3") %>%
+    stringr::str_replace_all(" - "            , ":"          ) %>%
+    stringr::str_replace_all(sep              , ":"          ) %>%
+    stringr::str_replace_all("minus"          , "-"          ) %>%
+    tibble::as_tibble() %>%
+    tidyr::separate(.data[["value"]], into = cols, sep = ":") %>%
       # to avoid dupulication (two or more stations have identical name)
-    map(dplyr::mutate, 
-        "station" := 
-        stringr::str_c(.data[["station"]], "_", .data[["country"]]))
-  return(cleaned_text)
+    dplyr::mutate("station" := 
+                  stringr::str_c(.data[["station"]], "_", .data[["country"]]))
+  return(cleaned_station)
 }

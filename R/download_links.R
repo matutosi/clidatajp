@@ -1,4 +1,4 @@
-#' Donwload links for areas, countries and stations.
+#' Donwload links for areas, countries and stations
 #' 
 #' For polite scraping, 5 sec interval is set in donwload_links(), 
 #' it takes about 15 minutes to get all station links. 
@@ -16,6 +16,7 @@
 #' area_links <- donwload_area_links()
 #' station_links <- NULL
 #' area_links <- head(area_links)  # for test
+#' \dontrun{
 #' for(i in seq_along(area_links)){
 #'     print(stringr::str_c("area: ", i, " / ", length(area_links)))
 #'     country_links <- donwload_links(area_links[i])
@@ -27,6 +28,7 @@
 #' }
 #' station_links <- tibble::tibble(url = station_links)
 #' station_links
+#' }
 #' 
 #' @export
 donwload_area_links <- function(

@@ -4,7 +4,7 @@
 \alias{download_links}
 \alias{donwload_area_links}
 \alias{donwload_links}
-\title{Donwload links for areas, countries and stations.}
+\title{Donwload links for areas, countries and stations}
 \usage{
 donwload_area_links(
   url = "https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/"
@@ -24,8 +24,6 @@ For polite scraping, 5 sec interval is set in donwload_links(),
 it takes about 15 minutes to get all station links.
 Please use existing links by "data(station_links)",
 if you do not need to renew links.
-}
-\details{
 You can see web page as below.
 https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 }
@@ -35,6 +33,7 @@ library(tidyverse)
 area_links <- donwload_area_links()
 station_links <- NULL
 area_links <- head(area_links)  # for test
+\dontrun{
 for(i in seq_along(area_links)){
     print(stringr::str_c("area: ", i, " / ", length(area_links)))
     country_links <- donwload_links(area_links[i])
@@ -46,5 +45,6 @@ for(i in seq_along(area_links)){
 }
 station_links <- tibble::tibble(url = station_links)
 station_links
+}
 
 }
