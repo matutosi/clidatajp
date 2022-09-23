@@ -21,19 +21,17 @@
 #' 
 #' climate <- list()
 #' for(i in seq_along(station_links)){
-#'   climate[i] <- donwload_climate(station_links[i])
+#'   print(stringr::str_c(i, " / ", length(station_links)))
+#'   climate[[i]] <- donwload_climate(station_links[i])
 #' }
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
+#' world_climate <- dplyr::bind_rows(climate)
+#' world_climate
 #' 
 #' @export
 donwload_climate <- function(url){
   sleep()
+
+url <- station_links[i]
   html <- 
     url %>%
     rvest::read_html()
@@ -78,48 +76,9 @@ clean_station <- function(text){
     map(stringr::str_replace_all, "minus"          , "-"          ) %>%
     map(tibble::as_tibble) %>%
     map(tidyr::separate, .data[["value"]], into = cols, sep = ":") %>%
+      # to avoid dupulication (two or more stations have identical name)
     map(dplyr::mutate, 
         "station" := 
         stringr::str_c(.data[["station"]], "_", .data[["country"]]))
   return(cleaned_text)
-}
-
-
-clean_station <- function(text){
-  cols <- c("station", "country", "latitude", "NS", "longitude", "WE", "altitude")
-  text %>%
-    stringr::str_replace_all("\\s+"                 , " "             ) %>%
-    stringr::str_replace_all("高度：- \\(m\\)"      , "高度：NA"      ) %>%
-    stringr::str_replace_all("高度：-(\\d+) \\(m\\)", "高度：minus\\1") %>%
-    stringr::str_replace_all(" \\(m\\)"             , ""              ) %>%
-    stringr::str_replace_all("(.+)-(.+)-(.+)"       , "\\1_\\2:\\3"   ) %>%
-    stringr::str_replace_all(" - "                  , ":"             ) %>%
-    stringr::str_replace_all("\\s+[緯経高]度：|°"  , ":"             ) %>%
-    stringr::str_replace_all("minus"                , "-"             ) %>%
-    tibble::as_tibble() %>%
-    tidyr::separate(.data[["value"]], into = cols, sep = ":") %>%
-      # to avoid dupulication (stations have same name)
-    dplyr::mutate("station" := stringr::str_c(.data[["station"]], "_", .data[["country"]]))
-}
-
-#' @rdname download_climate
-#' @export
-clean_station <- function(text){
-  cols <- 
-    c("station", "country", "latitude", "NS", "longitude", "WE", "altitude")
-  sep <- "\\s+.\\u5ea6\\uff1a|\\u00b0"
-  text %>%
-    stringi::stri_escape_unicode() %>%
-    stringr::str_replace_all("\\s+"           , " "          ) %>%
-    stringr::str_replace_all("- \\(m\\)"      , "NA"         ) %>%
-    stringr::str_replace_all("-(\\d+) \\(m\\)", "minus\\1"   ) %>%
-    stringr::str_replace_all(" \\(m\\)"       , ""           ) %>%
-    stringr::str_replace_all("(.+)-(.+)-(.+)" , "\\1_\\2:\\3") %>%
-    stringr::str_replace_all(" - "            , ":"          ) %>%
-    stringr::str_replace_all(sep              , ":"          ) %>%
-    stringr::str_replace_all("minus"          , "-"          ) %>%
-    tibble::as_tibble() %>%
-    tidyr::separate(.data[["value"]], into = cols, sep = ":") %>%
-  # to avoid dupulication (stations have same name)
-    dplyr::mutate("station" := stringr::str_c(.data[["station"]], "_", .data[["country"]]))
 }
