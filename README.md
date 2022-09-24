@@ -7,8 +7,8 @@
 <!-- badges: end -->
 
 The goal of clidatajp is to provide climate data from Japan
-Meteorological Agency (‘JMA’). You can also download climate data from
-‘JMA’.
+Meteorological Agency (‘JMA’). Data was downloaded from ‘JMA’ and
+edited. You can also download climate data from ‘JMA’.
 
 ## Installation
 
