@@ -6,15 +6,15 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of clidatajp is to provide climate data from Japan
-Meteorological Agency (‘JMA’). You can also download climate data from
-‘JMA’.
+clidatajpは，日本の気象庁(JMA)から取得した気候データを提供することを目的に開発しました．
+気象庁から新たにデータをダウンロードすることも可能です．
 
-## Installation
+## インストール
 
-You can install the development version of clidatajp from
-[GitHub](https://github.com/). You can see climate data directly from
-‘JMA’ ( <https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/> ).
+開発中のバージョンは，GitHubからダウンロード可能です．
+また，clidatajpを使わずとも，手作業で気象庁から直接データをダウンロードすることもできます．
+
+<https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/>
 
 ``` r
   # CRAN
@@ -25,9 +25,9 @@ install.packages("clidatajp")
 devtools::install_github("matutosi/clidatajp")
 ```
 
-## Example
+## 実行例
 
-This is a basic example which shows you how to solve a common problem:
+基本的な使い方は以下をご覧ください．
 
 ``` r
 library(clidatajp)
@@ -41,7 +41,7 @@ library(tidyverse)
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 
-  # show station information and link
+  # 観測地点とそのリンクのデータ
 data(station_links)
 station_links %>%
   dplyr::mutate("station" := stringi::stri_unescape_unicode(station))
@@ -60,7 +60,7 @@ station_links %>%
 #> 10 10    ウームエルブワギー - アルジェリア   緯度：35.87°N   経度：7.12… https:…
 #> # … with 3,434 more rows
 
-  # show climate data
+  # 観測データ(日本，世界)
 data(japan_climate)
 japan_climate %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
@@ -99,7 +99,7 @@ world_climate %>%
 #> # … with 41,318 more rows, and 3 more variables: longitude <dbl>, WE <chr>,
 #> #   altitude <dbl>
 
-  # download climate data
+  # 新たにデータを取得する場合
 station_links %>%
   `$`("url") %>%
   `[[`(1) %>%
@@ -122,7 +122,10 @@ station_links %>%
 #> # … with 2 more variables: precipitation <dbl>, url <chr>
 ```
 
-## Citation
+## 引用
 
 Toshikazu Matsumura (2022) Tools for download climate data from Japan
-Meteorological Agency with R. <https://github.com/matutosi/clidatajp/>.
+Meteorological Agency with R. <https://github.com/matutosi/clidatajp/> .
+
+松村 俊和 (2022) Rを使った気象協会からの観測データの取得ツール.
+<https://github.com/matutosi/clidatajp/> .

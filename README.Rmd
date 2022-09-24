@@ -23,7 +23,7 @@ You can also download climate data from 'JMA'.
 
 ## Installation
 
-You can install the development version of clidatajp from [GitHub](https://github.com/) with:
+You can install the development version of clidatajp from [GitHub](https://github.com/).
 You can see climate data directly from 'JMA' ( https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/ ). 
 
 ``` r
