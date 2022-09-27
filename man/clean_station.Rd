@@ -18,7 +18,7 @@ Helper function for download_climate().
 \examples{
 data(station_links)
 station_links \%>\%
-  head() \%>\%
+  head(1) \%>\%
   `$`("station") \%>\%
   stringi::stri_unescape_unicode() \%>\%
   clean_station()

@@ -16,7 +16,7 @@
 #' data(station_links)
 #' station_links <-
 #'   station_links %>%
-#'   head() %>%
+#'   head(1) %>%
 #'   `$`("url")
 #' 
 #' climate <- list()
@@ -61,7 +61,7 @@ download_climate <- function(url){
 #' @examples
 #' data(station_links)
 #' station_links %>%
-#'   head() %>%
+#'   head(1) %>%
 #'   `$`("station") %>%
 #'   stringi::stri_unescape_unicode() %>%
 #'   clean_station()
