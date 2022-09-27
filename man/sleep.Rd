@@ -9,6 +9,9 @@ sleep(sec = 5)
 \arguments{
 \item{sec}{A numeric to sleep (sec).}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 Wrapper function to sleep
 }

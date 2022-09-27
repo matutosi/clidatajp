@@ -29,7 +29,6 @@ station_links <-
   head() \%>\%
   `$`("url")
 
-\dontrun{
 climate <- list()
 for(i in seq_along(station_links)){
   print(stringr::str_c(i, " / ", length(station_links)))
@@ -37,6 +36,5 @@ for(i in seq_along(station_links)){
 }
 world_climate <- dplyr::bind_rows(climate)
 world_climate
-}
 
 }
