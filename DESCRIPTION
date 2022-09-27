@@ -5,11 +5,6 @@ Authors@R:
     person("Toshikazu", "Matsumura", , "matutosi@gmail.com", role = c("aut", "cre"))
 Description: Includes climate data from Japan Meteorological Agency ('JMA') <https://www.jma.go.jp/jma/indexe.html>.
     Can download climate data from 'JMA'. 
-
-Please provide a link to the used webservices to the description field 
-of your DESCRIPTION file in the form
-
-
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
