@@ -3,16 +3,21 @@ Title: Data from Japan Meteorological Agency
 Version: 0.5.0
 Authors@R: 
     person("Toshikazu", "Matsumura", , "matutosi@gmail.com", role = c("aut", "cre"))
-Description: Includes climate data from Japan Meteorological Agency ('JMA').
+Description: Includes climate data from Japan Meteorological Agency ('JMA') <https://www.jma.go.jp/jma/indexe.html>.
     Can download climate data from 'JMA'. 
+
+Please provide a link to the used webservices to the description field 
+of your DESCRIPTION file in the form
+
+
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Depends: 
     R (>= 3.5.0)
-URL: <https://github.com/matutosi/clidatajp>
-     <https://github.com/matutosi/clidatajp/tree/develop> (devel)
+URL: https://github.com/matutosi/clidatajp
+     https://github.com/matutosi/clidatajp/tree/develop (devel)
 LazyData: true
 Imports: 
     dplyr,
