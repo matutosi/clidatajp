@@ -16,7 +16,6 @@
 #' area_links <- download_area_links()
 #' station_links <- NULL
 #' area_links <- head(area_links)  # for test
-#' \dontrun{
 #' for(i in seq_along(area_links)){
 #'     print(stringr::str_c("area: ", i, " / ", length(area_links)))
 #'     country_links <- download_links(area_links[i])
@@ -28,7 +27,6 @@
 #' }
 #' station_links <- tibble::tibble(url = station_links)
 #' station_links
-#' }
 #' 
 #' @export
 download_area_links <- function(

@@ -1,6 +1,6 @@
 #' Wrapper function to sleep
 #' @param sec  A numeric to sleep (sec).
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @export
 sleep <- function(sec = 5){ Sys.sleep(sec) }
 
