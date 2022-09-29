@@ -12,14 +12,15 @@
 #' @return     A string vector of url links.
 #' @examples
 #' # If you want links for all countries and all sations, remove head().
+#' \donttest{
 #' library(tidyverse)
 #' area_links <- download_area_links()
 #' station_links <- NULL
-#' area_links <- head(area_links, 1)  # for test
+#' area_links <- head(area_links)  # for test
 #' for(i in seq_along(area_links)){
 #'     print(stringr::str_c("area: ", i, " / ", length(area_links)))
 #'     country_links <- download_links(area_links[i])
-#'     country_links <- head(country_links, 1)  # for test
+#'     country_links <- head(country_links)  # for test
 #'     for(j in seq_along(country_links)){
 #'         print(stringr::str_c("    country: ", j, " / ", length(country_links)))
 #'         station_links <- c(station_links, download_links(country_links[j]))
@@ -27,7 +28,7 @@
 #' }
 #' station_links <- tibble::tibble(url = station_links)
 #' station_links
-#' 
+#' }
 #' @export
 download_area_links <- function(
   url = "https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/"){

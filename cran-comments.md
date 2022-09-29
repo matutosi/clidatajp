@@ -4,9 +4,7 @@ This is a resubmission. In this version I have:
 
 * Added a link to the used webservices to the description field of DESCRIPTION file.
 * Added \value to sleep.Rd.
-* Removed \dontrun{} in example of download_climate.R, download_links.R and *.rd files.
-  cf. new NOTE: Examples with CPU (user + system) or elapsed time > 5s
-  Because of polite scraping (at least 5 sec interval).
+* Replaced \dontrun{} with \donottest{} download_climate.R, download_links.R and *.rd files.
 
 # Test environments
 

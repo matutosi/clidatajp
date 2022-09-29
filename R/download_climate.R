@@ -12,11 +12,12 @@
 #' @return  A tibble including climate and station information.
 #' @examples
 #' # If you want all climate data, remove head().
+#' \donttest{
 #' library(tidyverse)
 #' data(station_links)
 #' station_links <-
 #'   station_links %>%
-#'   head(1) %>%
+#'   head() %>%
 #'   `$`("url")
 #' 
 #' climate <- list()
@@ -26,7 +27,7 @@
 #' }
 #' world_climate <- dplyr::bind_rows(climate)
 #' world_climate
-#' 
+#' }
 #' @export
 download_climate <- function(url){
   sleep()
