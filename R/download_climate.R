@@ -17,7 +17,7 @@
 #' data(station_links)
 #' station_links <-
 #'   station_links %>%
-#'   head() %>%
+#'   head(1) %>%
 #'   `$`("url")
 #' 
 #' climate <- list()

@@ -16,11 +16,11 @@
 #' library(tidyverse)
 #' area_links <- download_area_links()
 #' station_links <- NULL
-#' area_links <- head(area_links)  # for test
+#' area_links <- head(area_links, 1)  # for test
 #' for(i in seq_along(area_links)){
 #'     print(stringr::str_c("area: ", i, " / ", length(area_links)))
 #'     country_links <- download_links(area_links[i])
-#'     country_links <- head(country_links)  # for test
+#'     country_links <- head(country_links, 1)  # for test
 #'     for(j in seq_along(country_links)){
 #'         print(stringr::str_c("    country: ", j, " / ", length(country_links)))
 #'         station_links <- c(station_links, download_links(country_links[j]))
