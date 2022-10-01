@@ -12,7 +12,8 @@
 #' @return  A tibble including climate and station information.
 #' @examples
 #' # If you want all climate data, remove head().
-#' \donttest{
+#' # The codes below take > 5 sec. 
+#' \dontrun{
 #' library(tidyverse)
 #' data(station_links)
 #' station_links <-

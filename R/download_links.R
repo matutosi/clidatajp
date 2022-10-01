@@ -12,7 +12,8 @@
 #' @return     A string vector of url links.
 #' @examples
 #' # If you want links for all countries and all sations, remove head().
-#' \donttest{
+#' # The codes below take > 5 sec. 
+#' \dontrun{
 #' library(tidyverse)
 #' area_links <- download_area_links()
 #' station_links <- NULL
