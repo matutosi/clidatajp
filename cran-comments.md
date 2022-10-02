@@ -4,7 +4,8 @@ This is a resubmission. In this version I have:
 
 * Added a link to the used webservices to the description field of DESCRIPTION file.
 * Added \value to sleep.Rd.
-* Replaced \dontrun{} with \donottest{} download_climate.R, download_links.R and *.rd files.
+* kept \dontrun{} in download_climate.R, download_links.R, 
+  bacause the examples take < 5 sec for polite scraping (at least 5 sec interval).
 
 # Test environments
 
@@ -27,12 +28,7 @@ There were 0 errors  | 0 warnings  | 0 notes
 
 ## devtools::check_rhub()
 
-There were 0 errors  | 0 warnings  | 4 notes
-
-* checking examples ... [5s/20s] NOTE
-  Examples with CPU (user + system) or elapsed time > 5s
-
-  Because of polite scraping (at least 5 sec interval).
+There were 0 errors  | 0 warnings  | 3 notes
 
 * checking CRAN incoming feasibility ... [14s] NOTE
   New submission
