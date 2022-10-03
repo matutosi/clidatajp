@@ -12,7 +12,7 @@
 #' @return     A string vector of url links.
 #' @examples
 #' # If you want links for all countries and all sations, remove head().
-#' # The codes below take > 5 sec. 
+#' # The codes take > 5 sec because of poliste scraping.
 #' \dontrun{
 #' library(tidyverse)
 #' area_links <- download_area_links()

@@ -16,9 +16,7 @@ This is a resubmission. In this version I have:
     * Windows Server 2022, R-devel, 64 bit
     * Ubuntu Linux 20.04.1 LTS, R-release, GCC
     * Fedora Linux, R-devel, clang, gfortran
-* Could not test by devtools::check_win_devel()
-    Error in curl::curl_fetch_memory(url, handle = h) : 
-    Timeout was reached: [win-builder.r-project.org] Operation timed out after 10001 milliseconds with 0 out of 0 bytes received
+* devtools::check_win_devel()
 
 # R CMD check results
 
@@ -26,7 +24,7 @@ This is a resubmission. In this version I have:
 
 There were 0 errors  | 0 warnings  | 0 notes
 
-## devtools::check_rhub()
+## devtools::check_rhub() and devtools::check_win_devel()
 
 There were 0 errors  | 0 warnings  | 3 notes
 

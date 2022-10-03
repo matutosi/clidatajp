@@ -28,6 +28,8 @@ https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 }
 \examples{
 # If you want links for all countries and all sations, remove head().
+# The codes take > 5 sec because of poliste scraping.
+\dontrun{
 library(tidyverse)
 area_links <- download_area_links()
 station_links <- NULL
@@ -43,5 +45,5 @@ for(i in seq_along(area_links)){
 }
 station_links <- tibble::tibble(url = station_links)
 station_links
-
+}
 }

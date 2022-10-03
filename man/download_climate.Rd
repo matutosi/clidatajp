@@ -22,6 +22,8 @@ https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 }
 \examples{
 # If you want all climate data, remove head().
+# The codes take > 5 sec because of poliste scraping.
+\dontrun{
 library(tidyverse)
 data(station_links)
 station_links <-
@@ -36,5 +38,5 @@ for(i in seq_along(station_links)){
 }
 world_climate <- dplyr::bind_rows(climate)
 world_climate
-
+}
 }
