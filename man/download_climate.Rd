@@ -23,7 +23,7 @@ https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 \examples{
 # If you want all climate data, remove head().
 # The codes take > 5 sec because of poliste scraping.
-\dontrun{
+\donttest{
 library(tidyverse)
 data(station_links)
 station_links <-

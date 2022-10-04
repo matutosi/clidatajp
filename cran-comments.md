@@ -1,11 +1,8 @@
 ## Resubmission
 
-This is a resubmission. In this version I have:
+This is a re-resubmission. In this version I have:
 
-* Added a link to the used webservices to the description field of DESCRIPTION file.
-* Added \value to sleep.Rd.
-* kept \dontrun{} in download_climate.R, download_links.R, 
-  bacause the examples take < 5 sec for polite scraping (at least 5 sec interval).
+* Replaced \dontrun{} with \donttest{} in download_climate.R, download_links.R. 
 
 # Test environments
 
