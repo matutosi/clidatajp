@@ -2,7 +2,7 @@
 
 This is a re-resubmission. In this version I have:
 
-* Replaced \dontrun{} with \donttest{} in download_climate.R, download_links.R. 
+* Replaced \dontrun{} with \donttest{} in download_climate.R and download_links.R. 
 
 # Test environments
 
