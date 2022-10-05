@@ -5,6 +5,7 @@
 
 * TODO
   * Add function for downloading detail data from 'JMA'
+  * Add functions for caluculating ci (cool index) and wi (warm index).
 
 # clidatajp 0.5.0
 
