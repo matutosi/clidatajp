@@ -4,29 +4,34 @@ output:
     rmarkdown::html_vignette:
         fig_width: 5
         fig_height: 5
-        keep_md: TRUE
+        keep_md: true
 vignette: >
   %\VignetteIndexEntry{clidatajp}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+
 
 # 
 
 
-```{r setup}
+
+```r
 library(tidyverse)
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+#> ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+#> ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+#> ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+#> ✔ readr   2.1.2      ✔ forcats 0.5.2 
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
 library(clidatajp)
 ```
 
-```{r plot}
+
+```r
 data(world_climate)
 data(japan_climate)
 
@@ -45,12 +50,20 @@ climate <-
   dplyr::left_join(tibble::tibble(WE = c("W", "E"), we = c(-1, 1))) %>%
   dplyr::group_by(station) %>%
   dplyr::mutate(lat = latitude * ns, lon = longitude * we)
+#> Joining, by = "station"
+#> Joining, by = "NS"
+#> Joining, by = "WE"
 
 climate %>%
   ggplot(aes(lon, lat, colour = temp)) +
     scale_colour_gradient2(low = "blue", mid = "gray", high = "red", midpoint = 15) + 
     geom_point() + 
     theme_bw()
+```
+
+![](D:/dropbox/ToDo/clidatajp/vignettes/plot_files/figure-html/plot-1.png)<!-- -->
+
+```r
   # ggsave("temperature.png")
 
 climate %>%
@@ -59,6 +72,11 @@ climate %>%
     scale_colour_gradient2(low = "yellow", mid = "gray", high = "blue", midpoint = 1500) + 
     geom_point() + 
     theme_bw()
+```
+
+![](D:/dropbox/ToDo/clidatajp/vignettes/plot_files/figure-html/plot-2.png)<!-- -->
+
+```r
   # ggsave("precipitation.png")
 
 japan <- stringi::stri_unescape_unicode("\\u65e5\\u672c")
@@ -68,12 +86,22 @@ climate %>%
   geom_point() + 
   theme_bw() + 
   theme(legend.position="none")
+```
+
+![](D:/dropbox/ToDo/clidatajp/vignettes/plot_files/figure-html/plot-3.png)<!-- -->
+
+```r
   # ggsave("climate_nojp.png")
 
 climate %>%
   ggplot(aes(temp, prec)) + 
     geom_point() + 
     theme_bw()
+```
+
+![](D:/dropbox/ToDo/clidatajp/vignettes/plot_files/figure-html/plot-4.png)<!-- -->
+
+```r
   # ggsave("climate_all.png")
 
 climate %>%
@@ -82,6 +110,10 @@ climate %>%
     geom_point() + 
     theme_bw() +
     theme(legend.position="none")
-  # ggsave("climate_compare_jp.png")
+```
 
+![](D:/dropbox/ToDo/clidatajp/vignettes/plot_files/figure-html/plot-5.png)<!-- -->
+
+```r
+  # ggsave("climate_compare_jp.png")
 ```
