@@ -65,6 +65,68 @@ station_links %>%
   download_climate()
 ```
 
+## plot
+
+```{r plot}
+data(world_climate)
+data(japan_climate)
+
+climate <- 
+  dplyr::bind_rows(world_climate, japan_climate) %>%
+  dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)  %>%
+  dplyr::group_by(station) %>%
+  dplyr::filter(sum(is.na(temperature), is.na(precipitation)) == 0) %>%
+  dplyr::filter(period != "1991-2020" | is.na(period))
+
+climate <- 
+  climate %>%
+  dplyr::summarise(temp = mean(as.numeric(temperature)), prec = sum(as.numeric(precipitation))) %>%
+  dplyr::left_join(dplyr::distinct(dplyr::select(climate, station:altitude))) %>%
+  dplyr::left_join(tibble::tibble(NS = c("S", "N"), ns = c(-1, 1))) %>%
+  dplyr::left_join(tibble::tibble(WE = c("W", "E"), we = c(-1, 1))) %>%
+  dplyr::group_by(station) %>%
+  dplyr::mutate(lat = latitude * ns, lon = longitude * we)
+
+climate %>%
+  ggplot(aes(lon, lat, colour = temp)) +
+    scale_colour_gradient2(low = "blue", mid = "gray", high = "red", midpoint = 15) + 
+    geom_point() + 
+    theme_bw()
+  # ggsave("temperature.png")
+
+climate %>%
+  dplyr::filter(prec < 4000) %>%
+  ggplot(aes(lon, lat, colour = prec)) +
+    scale_colour_gradient2(low = "yellow", mid = "gray", high = "blue", midpoint = 1500) + 
+    geom_point() + 
+    theme_bw()
+  # ggsave("precipitation.png")
+
+japan <- stringi::stri_unescape_unicode("\\u65e5\\u672c")
+climate %>%
+  dplyr::filter(country != japan) %>%
+  ggplot(aes(temp, prec)) + 
+  geom_point() + 
+  theme_bw() + 
+  theme(legend.position="none")
+  # ggsave("climate_nojp.png")
+
+climate %>%
+  ggplot(aes(temp, prec)) + 
+    geom_point() + 
+    theme_bw()
+  # ggsave("climate_all.png")
+
+climate %>%
+  dplyr::mutate(jp = (country == japan)) %>%
+  ggplot(aes(temp, prec, colour = jp)) + 
+    geom_point() + 
+    theme_bw() +
+    theme(legend.position="none")
+  # ggsave("climate_compare_jp.png")
+
+```
+
 ## Citation
 
 Toshikazu Matsumura (2022) Tools for download climate data from Japan Meteorological Agency with R. https://github.com/matutosi/clidatajp/.
