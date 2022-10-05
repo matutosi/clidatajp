@@ -1,10 +1,7 @@
 ---
 title: "clidatajp"
 output: 
-    rmarkdown::html_vignette:
-        fig_width: 5
-        fig_height: 5
-        keep_md: TRUE
+    rmarkdown::github_document: 
 vignette: >
   %\VignetteIndexEntry{clidatajp}
   %\VignetteEngine{knitr::rmarkdown}
