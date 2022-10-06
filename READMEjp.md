@@ -171,11 +171,11 @@ climate %>%
 ```
 
 年間降水量を世界地図のように表示．
-ただし，凡例が引きずられるのを防ぐため，4000mm/年の地点は除去．
+ただし，凡例が引きずられるのを防ぐため，5000mm/年の地点は除去．
 
 ``` r
 climate %>%
-  dplyr::filter(prec < 4000) %>%
+  dplyr::filter(prec < 5000) %>%
   ggplot(aes(lon, lat, colour = prec)) +
     scale_colour_gradient2(low = "yellow", mid = "gray", high = "blue", midpoint = 1500) + 
     geom_point() + 

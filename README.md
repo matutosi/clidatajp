@@ -163,12 +163,12 @@ climate %>%
   # ggsave("temperature.png")
 ```
 
-Draw a world map with precipitation except over 4000 mm/yr (to avoid
+Draw a world map with precipitation except over 5000 mm/yr (to avoid
 extended legend).
 
 ``` r
 climate %>%
-  dplyr::filter(prec < 4000) %>%
+  dplyr::filter(prec < 5000) %>%
   ggplot(aes(lon, lat, colour = prec)) +
     scale_colour_gradient2(low = "yellow", mid = "gray", high = "blue", midpoint = 1500) + 
     geom_point() + 
