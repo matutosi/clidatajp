@@ -65,12 +65,9 @@ station_links %>%
   download_climate()
 ```
 
-## plot
+## Plot
 
-```{r plot}
-data(world_climate)
-data(japan_climate)
-
+```{r clean_data}
 climate <- 
   dplyr::bind_rows(world_climate, japan_climate) %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)  %>%
@@ -86,14 +83,18 @@ climate <-
   dplyr::left_join(tibble::tibble(WE = c("W", "E"), we = c(-1, 1))) %>%
   dplyr::group_by(station) %>%
   dplyr::mutate(lat = latitude * ns, lon = longitude * we)
+```
 
+```{r temperature}
 climate %>%
   ggplot(aes(lon, lat, colour = temp)) +
     scale_colour_gradient2(low = "blue", mid = "gray", high = "red", midpoint = 15) + 
     geom_point() + 
     theme_bw()
   # ggsave("temperature.png")
+```
 
+```{r precipitation}
 climate %>%
   dplyr::filter(prec < 4000) %>%
   ggplot(aes(lon, lat, colour = prec)) +
@@ -101,7 +102,9 @@ climate %>%
     geom_point() + 
     theme_bw()
   # ggsave("precipitation.png")
+```
 
+```{r except_japan}
 japan <- stringi::stri_unescape_unicode("\\u65e5\\u672c")
 climate %>%
   dplyr::filter(country != japan) %>%
@@ -110,13 +113,17 @@ climate %>%
   theme_bw() + 
   theme(legend.position="none")
   # ggsave("climate_nojp.png")
+```
 
+```{r all_data}
 climate %>%
   ggplot(aes(temp, prec)) + 
     geom_point() + 
     theme_bw()
   # ggsave("climate_all.png")
+```
 
+```{r compare_japan}
 climate %>%
   dplyr::mutate(jp = (country == japan)) %>%
   ggplot(aes(temp, prec, colour = jp)) + 

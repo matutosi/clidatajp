@@ -32,11 +32,11 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(clidatajp)
 library(tidyverse)
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 #> ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
 #> ✔ tibble  3.1.8      ✔ dplyr   1.0.10
 #> ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-#> ✔ readr   2.1.2      ✔ forcats 0.5.2 
+#> ✔ readr   2.1.2      ✔ forcats 0.5.1
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -124,12 +124,9 @@ station_links %>%
 #> #   ²​longitude, ³​altitude, ⁴​temperature, ⁵​precipitation
 ```
 
-## plot
+## Plot
 
 ``` r
-data(world_climate)
-data(japan_climate)
-
 climate <- 
   dplyr::bind_rows(world_climate, japan_climate) %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)  %>%
@@ -148,7 +145,9 @@ climate <-
 #> Joining, by = "station"
 #> Joining, by = "NS"
 #> Joining, by = "WE"
+```
 
+``` r
 climate %>%
   ggplot(aes(lon, lat, colour = temp)) +
     scale_colour_gradient2(low = "blue", mid = "gray", high = "red", midpoint = 15) + 
@@ -156,11 +155,13 @@ climate %>%
     theme_bw()
 ```
 
-<img src="man/figures/README-plot-1.png" width="100%" />
+<img src="man/figures/README-temperature-1.png" width="100%" />
 
 ``` r
   # ggsave("temperature.png")
+```
 
+``` r
 climate %>%
   dplyr::filter(prec < 4000) %>%
   ggplot(aes(lon, lat, colour = prec)) +
@@ -169,11 +170,13 @@ climate %>%
     theme_bw()
 ```
 
-<img src="man/figures/README-plot-2.png" width="100%" />
+<img src="man/figures/README-precipitation-1.png" width="100%" />
 
 ``` r
   # ggsave("precipitation.png")
+```
 
+``` r
 japan <- stringi::stri_unescape_unicode("\\u65e5\\u672c")
 climate %>%
   dplyr::filter(country != japan) %>%
@@ -183,22 +186,26 @@ climate %>%
   theme(legend.position="none")
 ```
 
-<img src="man/figures/README-plot-3.png" width="100%" />
+<img src="man/figures/README-except_japan-1.png" width="100%" />
 
 ``` r
   # ggsave("climate_nojp.png")
+```
 
+``` r
 climate %>%
   ggplot(aes(temp, prec)) + 
     geom_point() + 
     theme_bw()
 ```
 
-<img src="man/figures/README-plot-4.png" width="100%" />
+<img src="man/figures/README-all_data-1.png" width="100%" />
 
 ``` r
   # ggsave("climate_all.png")
+```
 
+``` r
 climate %>%
   dplyr::mutate(jp = (country == japan)) %>%
   ggplot(aes(temp, prec, colour = jp)) + 
@@ -207,7 +214,7 @@ climate %>%
     theme(legend.position="none")
 ```
 
-<img src="man/figures/README-plot-5.png" width="100%" />
+<img src="man/figures/README-compare_japan-1.png" width="100%" />
 
 ``` r
   # ggsave("climate_compare_jp.png")
