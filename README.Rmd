@@ -2,8 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -67,6 +65,8 @@ station_links %>%
 
 ## Plot
 
+Clean up data before drawing plot. 
+
 ```{r clean_data}
 climate <- 
   dplyr::bind_rows(world_climate, japan_climate) %>%
@@ -85,6 +85,8 @@ climate <-
   dplyr::mutate(lat = latitude * ns, lon = longitude * we)
 ```
 
+Draw a world map with temperature. 
+
 ```{r temperature}
 climate %>%
   ggplot(aes(lon, lat, colour = temp)) +
@@ -93,6 +95,9 @@ climate %>%
     theme_bw()
   # ggsave("temperature.png")
 ```
+
+
+Draw a world map with precipitation except over 4000 mm/yr (to avoid extended legend).
 
 ```{r precipitation}
 climate %>%
@@ -103,6 +108,9 @@ climate %>%
     theme_bw()
   # ggsave("precipitation.png")
 ```
+
+
+Show relationships between temperature and precipitation except Japan.
 
 ```{r except_japan}
 japan <- stringi::stri_unescape_unicode("\\u65e5\\u672c")
@@ -115,6 +123,9 @@ climate %>%
   # ggsave("climate_nojp.png")
 ```
 
+
+Show relationships between temperature and precipitation including Japan.
+
 ```{r all_data}
 climate %>%
   ggplot(aes(temp, prec)) + 
@@ -122,6 +133,10 @@ climate %>%
     theme_bw()
   # ggsave("climate_all.png")
 ```
+
+
+Show relationships between temperature and precipitation. 
+Blue: Japan, red: others. 
 
 ```{r compare_japan}
 climate %>%

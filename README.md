@@ -1,6 +1,4 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # clidatajp
 
 <!-- badges: start -->
@@ -126,6 +124,8 @@ station_links %>%
 
 ## Plot
 
+Clean up data before drawing plot.
+
 ``` r
 climate <- 
   dplyr::bind_rows(world_climate, japan_climate) %>%
@@ -147,6 +147,8 @@ climate <-
 #> Joining, by = "WE"
 ```
 
+Draw a world map with temperature.
+
 ``` r
 climate %>%
   ggplot(aes(lon, lat, colour = temp)) +
@@ -160,6 +162,9 @@ climate %>%
 ``` r
   # ggsave("temperature.png")
 ```
+
+Draw a world map with precipitation except over 4000 mm/yr (to avoid
+extended legend).
 
 ``` r
 climate %>%
@@ -175,6 +180,8 @@ climate %>%
 ``` r
   # ggsave("precipitation.png")
 ```
+
+Show relationships between temperature and precipitation except Japan.
 
 ``` r
 japan <- stringi::stri_unescape_unicode("\\u65e5\\u672c")
@@ -192,6 +199,9 @@ climate %>%
   # ggsave("climate_nojp.png")
 ```
 
+Show relationships between temperature and precipitation including
+Japan.
+
 ``` r
 climate %>%
   ggplot(aes(temp, prec)) + 
@@ -204,6 +214,9 @@ climate %>%
 ``` r
   # ggsave("climate_all.png")
 ```
+
+Show relationships between temperature and precipitation. Blue: Japan,
+red: others.
 
 ``` r
 climate %>%
