@@ -3,7 +3,7 @@
 #' Climate data downloaded from Japan Meteorological Agency web pages.
 #' URLs of each station are listed in data(station_links).
 #' https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
-#' @format A data frame with 3768 ( stations * 12 months) rows 
+#' @format A data frame with 3768 (157 stations * 12 months * 2 periods) rows 
 #' and 14 variable: 
 #' \describe{
 #'   \item{no           }{Station no}
