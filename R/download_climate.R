@@ -1,4 +1,4 @@
-#' download climate data of the world
+#' Download climate data of the world
 #' 
 #' For polite scraping, 5 sec interval is set in download_climate(), 
 #' it takes over 5 hours to get climate data of all stations. 

@@ -1,4 +1,4 @@
-#' download links for areas, countries and stations
+#' Download links for areas, countries and stations
 #' 
 #' For polite scraping, 5 sec interval is set in download_links(), 
 #' it takes about 15 minutes to get all station links. 
