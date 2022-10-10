@@ -1,5 +1,5 @@
   # use_data_raw("japan_climate")  # Generate a new file like this
-## code to prepare `world_climate` dataset goes here
+## code to prepare `japan_climate` dataset goes here
 
 library(tidyverse)
 devtools::load_all(".")

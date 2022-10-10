@@ -3,7 +3,7 @@
 \name{download_links}
 \alias{download_links}
 \alias{download_area_links}
-\title{download links for areas, countries and stations}
+\title{Download links for areas, countries and stations}
 \usage{
 download_area_links(
   url = "https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/"

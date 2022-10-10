@@ -2,7 +2,7 @@
 #' 
 #' For polite scraping, 5 sec interval is set in download_climate(), 
 #' it takes over 5 hours to get climate data of all stations. 
-#' Please use existing links by "data(world_climate)", 
+#' Please use existing links by "data(climate_world)", 
 #' if you do not need to renew climate data. 
 #' You can see web page as below. 
 #' https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
@@ -26,8 +26,8 @@
 #'   print(stringr::str_c(i, " / ", length(station_links)))
 #'   climate[[i]] <- download_climate(station_links[i])
 #' }
-#' world_climate <- dplyr::bind_rows(climate)
-#' world_climate
+#' climate_world <- dplyr::bind_rows(climate)
+#' climate_world
 #' }
 #' @export
 download_climate <- function(url){

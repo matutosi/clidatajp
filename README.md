@@ -30,11 +30,11 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(clidatajp)
 library(tidyverse)
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 #> ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
 #> ✔ tibble  3.1.8      ✔ dplyr   1.0.10
 #> ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-#> ✔ readr   2.1.2      ✔ forcats 0.5.1
+#> ✔ readr   2.1.2      ✔ forcats 0.5.2 
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -59,8 +59,8 @@ station_links %>%
 #> # … with 3,434 more rows
 
   # show climate data
-data(japan_climate)
-japan_climate %>%
+data(climate_jp)
+climate_jp %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 #> # A tibble: 3,768 × 14
 #>       no station month temperat…¹ preci…² snowf…³ insol…⁴ country period altit…⁵
@@ -79,8 +79,8 @@ japan_climate %>%
 #> #   NS <chr>, WE <chr>, and abbreviated variable names ¹​temperature,
 #> #   ²​precipitation, ³​snowfall, ⁴​insolation, ⁵​altitude
 
-data(world_climate)
-world_climate %>%
+data(climate_world)
+climate_world %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 #> # A tibble: 41,328 × 11
 #>       no month temperature precipi…¹ station country latit…² NS    longi…³ WE   
@@ -128,7 +128,7 @@ Clean up data before drawing plot.
 
 ``` r
 climate <- 
-  dplyr::bind_rows(world_climate, japan_climate) %>%
+  dplyr::bind_rows(climate_world, climate_jp) %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)  %>%
   dplyr::group_by(station) %>%
   dplyr::filter(sum(is.na(temperature), is.na(precipitation)) == 0) %>%

@@ -48,12 +48,12 @@ station_links %>%
   dplyr::mutate("station" := stringi::stri_unescape_unicode(station))
 
   # show climate data
-data(japan_climate)
-japan_climate %>%
+data(climate_jp)
+climate_jp %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 
-data(world_climate)
-world_climate %>%
+data(climate_world)
+climate_world %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 
   # download climate data
@@ -69,7 +69,7 @@ Clean up data before drawing plot.
 
 ```{r clean_data}
 climate <- 
-  dplyr::bind_rows(world_climate, japan_climate) %>%
+  dplyr::bind_rows(climate_world, climate_jp) %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)  %>%
   dplyr::group_by(station) %>%
   dplyr::filter(sum(is.na(temperature), is.na(precipitation)) == 0) %>%

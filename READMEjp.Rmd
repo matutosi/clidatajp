@@ -50,12 +50,12 @@ station_links %>%
   dplyr::mutate("station" := stringi::stri_unescape_unicode(station))
 
   # 観測データ(日本，世界)
-data(japan_climate)
-japan_climate %>%
+data(climate_jp)
+climate_jp %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 
-data(world_climate)
-world_climate %>%
+data(climate_world)
+climate_world %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 
   # 新たにデータを取得する場合
@@ -77,7 +77,7 @@ station_links %>%
 
 ```{r clean_data}
 climate <- 
-  dplyr::bind_rows(world_climate, japan_climate) %>%
+  dplyr::bind_rows(climate_world, climate_jp) %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)  %>%
   dplyr::group_by(station) %>%
   dplyr::filter(sum(is.na(temperature), is.na(precipitation)) == 0) %>%

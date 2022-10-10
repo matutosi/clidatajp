@@ -7,6 +7,13 @@
   * Add function for downloading detail data from 'JMA'
   * Add functions for calculating 'ci' (cool index) and 'wi' (warm index).
 
+* Add data
+    * `climate_station` include ..........
+
+* Rename data
+    * `japan_climate` to `climate_jp`
+    * `world_climate` to `climate_world`
+
 # clidatajp 0.5.0
 
 * First release
