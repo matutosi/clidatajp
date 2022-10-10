@@ -4,5 +4,6 @@
 library(tidyverse)
 climate_world <-
   readr::read_tsv("data-raw/climate_world.tsv", show_col_types = FALSE) %>%
-  dplyr::mutate_if(is.character, stringi::stri_escape_unicode)
+  dplyr::mutate_if(is.character, stringi::stri_escape_unicode) %>%
+  dplyr::mutate(no = as.numeric(no))
 usethis::use_data(climate_world, overwrite = TRUE)
