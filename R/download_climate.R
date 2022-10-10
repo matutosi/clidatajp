@@ -18,7 +18,12 @@
 #' data(station_links)
 #' station_links <-
 #'   station_links %>%
-#'   head(1) %>%
+#'   dplyr::mutate_all(stringi::stri_unescape_unicode) %>%
+#'   head(3) %T>%
+#'   { 
+#'      continent <<- `$`(., "continent") 
+#'      no        <<- `$`(., "no") 
+#'   } %>%
 #'   `$`("url")
 #' 
 #' climate <- list()
@@ -26,7 +31,12 @@
 #'   print(stringr::str_c(i, " / ", length(station_links)))
 #'   climate[[i]] <- download_climate(station_links[i])
 #' }
-#' climate_world <- dplyr::bind_rows(climate)
+#' month_per_year <- 12
+#' climate_world <- 
+#'   dplyr::bind_rows(climate) %>%
+#'   dplyr::bind_cols(tibble::tibble(continent = rep(continent, month_per_year))) %>%
+#'   dplyr::bind_cols(tibble::tibble(no        = rep(no,        month_per_year))) %>%
+#'   dplyr::relocate(no, continent, country, station)
 #' climate_world
 #' }
 #' @export
@@ -88,7 +98,7 @@ clean_station <- function(station){
     stringr::str_replace_all("minus"          , "-"          ) %>%
     tibble::as_tibble() %>%
     tidyr::separate(.data[["value"]], into = cols, sep = ":") %>%
-      # to avoid duplication (two or more stations have identical name)
+      # avoid duplication (two or more stations have identical name)
     dplyr::mutate("station" := 
                   stringr::str_c(.data[["station"]], "_", .data[["country"]]))
   return(cleaned_station)

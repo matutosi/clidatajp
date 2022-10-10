@@ -2,7 +2,7 @@
 % Please edit documentation in R/download_climate.R
 \name{download_climate}
 \alias{download_climate}
-\title{download climate data of the world}
+\title{Download climate data of the world}
 \usage{
 download_climate(url)
 }
@@ -15,7 +15,7 @@ A tibble including climate and station information.
 \description{
 For polite scraping, 5 sec interval is set in download_climate(),
 it takes over 5 hours to get climate data of all stations.
-Please use existing links by "data(world_climate)",
+Please use existing links by "data(climate_world)",
 if you do not need to renew climate data.
 You can see web page as below.
 https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
@@ -28,7 +28,12 @@ library(tidyverse)
 data(station_links)
 station_links <-
   station_links \%>\%
-  head(1) \%>\%
+  dplyr::mutate_all(stringi::stri_unescape_unicode) \%>\%
+  head(3) \%T>\%
+  { 
+     continent <<- `$`(., "continent") 
+     no        <<- `$`(., "no") 
+  } \%>\%
   `$`("url")
 
 climate <- list()
@@ -36,7 +41,12 @@ for(i in seq_along(station_links)){
   print(stringr::str_c(i, " / ", length(station_links)))
   climate[[i]] <- download_climate(station_links[i])
 }
-world_climate <- dplyr::bind_rows(climate)
-world_climate
+month_per_year <- 12
+climate_world <- 
+  dplyr::bind_rows(climate) \%>\%
+  dplyr::bind_cols(tibble::tibble(continent = rep(continent, month_per_year))) \%>\%
+  dplyr::bind_cols(tibble::tibble(no        = rep(no,        month_per_year))) \%>\%
+  dplyr::relocate(no, continent, country, station)
+climate_world
 }
 }

@@ -7,14 +7,15 @@
 \title{Climate data in the world}
 \format{
 A data frame with 41328 (3444 stations * 12 months) rows
-and 11 variable:
+and 12 variable:
 \describe{
 \item{no           }{Station no}
+\item{continent    }{Continent. Escaped by stringi::stri_escape_unicode().}
+\item{country      }{Country name. Escaped by stringi::stri_escape_unicode().}
+\item{station      }{Station name. To avoid duplication, including country name after station name. Can split by "_". Escaped by stringi::stri_escape_unicode().}
 \item{month        }{Month}
 \item{temperature  }{Mean temperature}
 \item{precipitation}{Mean precipitation}
-\item{station      }{Station name. To avoid duplication, including country name after station name. Can split by "_". Escaped by stringi::stri_escape_unicode().}
-\item{country      }{Country name. Escaped by stringi::stri_escape_unicode().}
 \item{latitude     }{Latitude. (degree)}
 \item{NS           }{North or South.}
 \item{longitude    }{Longitude. (degree)}
@@ -22,7 +23,7 @@ and 11 variable:
 \item{altitude     }{Altitude (m)}
 }
 
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 41328 rows and 11 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 41328 rows and 12 columns.
 }
 \usage{
 climate_world

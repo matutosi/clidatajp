@@ -39,8 +39,8 @@ https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 }
 \examples{
 library(tidyverse)
-data(japan_climate)
-japan_climate \%>\%
+data(climate_jp)
+climate_jp \%>\%
   dplyr::mutate_all(stringi::stri_unescape_unicode)
 }
 \keyword{datasets}
