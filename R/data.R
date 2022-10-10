@@ -23,10 +23,10 @@
 #' }
 #' @examples
 #' library(tidyverse)
-#' data(world_climate)
-#' world_climate %>%
+#' data(japan_climate)
+#' japan_climate %>%
 #'   dplyr::mutate_all(stringi::stri_unescape_unicode)
-"japan_climate"
+"climate_jp"
 
 #' Climate data in the world
 #' 
@@ -54,6 +54,14 @@
 #' data(world_climate)
 #' world_climate %>%
 #'   dplyr::mutate_all(stringi::stri_unescape_unicode)
+"climate_world"
+
+#' Renamed to climate_jp and will be removed in the future version.
+#' @rdname climate_jp
+"japan_climate"
+
+#' Renamed to climate_world and will be removed in the future version.
+#' @rdname climate_world
 "world_climate"
 
 #' Station name and its URL
