@@ -12,6 +12,8 @@ clidatajpは，日本の気象庁(JMA)から取得した気候データを提供
 
 開発中のバージョンは，GitHubからダウンロード可能です．
 また，clidatajpを使わずとも，手作業で気象庁から直接データをダウンロードすることもできます．
+ただし，download_climate()や手作業で新たにデータを取得するよりも，月平均気温と月間降水量については，data(climate_world)
+と data(climate_jp)の使用をお勧めします．
 
 <https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/>
 
@@ -31,11 +33,11 @@ devtools::install_github("matutosi/clidatajp")
 ``` r
 library(clidatajp)
 library(tidyverse)
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 #> ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
 #> ✔ tibble  3.1.8      ✔ dplyr   1.0.10
 #> ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-#> ✔ readr   2.1.2      ✔ forcats 0.5.1
+#> ✔ readr   2.1.2      ✔ forcats 0.5.2 
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -60,8 +62,8 @@ station_links %>%
 #> # … with 3,434 more rows
 
   # 観測データ(日本，世界)
-data(japan_climate)
-japan_climate %>%
+data(climate_jp)
+climate_jp %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 #> # A tibble: 3,768 × 14
 #>       no station month temperat…¹ preci…² snowf…³ insol…⁴ country period altit…⁵
@@ -80,24 +82,25 @@ japan_climate %>%
 #> #   NS <chr>, WE <chr>, and abbreviated variable names ¹​temperature,
 #> #   ²​precipitation, ³​snowfall, ⁴​insolation, ⁵​altitude
 
-data(world_climate)
-world_climate %>%
+data(climate_world)
+climate_world %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
-#> # A tibble: 41,328 × 11
-#>       no month temperature precipi…¹ station country latit…² NS    longi…³ WE   
-#>    <dbl> <dbl>       <dbl>     <dbl> <chr>   <chr>     <dbl> <chr>   <dbl> <chr>
-#>  1     1     1         7.1      14.9 アイン… アルジ…    32.8 N         0.6 W    
-#>  2     1     2         9.2      11.2 アイン… アルジ…    32.8 N         0.6 W    
-#>  3     1     3        12.9      15.9 アイン… アルジ…    32.8 N         0.6 W    
-#>  4     1     4        16.8      16.9 アイン… アルジ…    32.8 N         0.6 W    
-#>  5     1     5        21.5      15   アイン… アルジ…    32.8 N         0.6 W    
-#>  6     1     6        26.7       6.9 アイン… アルジ…    32.8 N         0.6 W    
-#>  7     1     7        31         4.1 アイン… アルジ…    32.8 N         0.6 W    
-#>  8     1     8        29.5      13.5 アイン… アルジ…    32.8 N         0.6 W    
-#>  9     1     9        24.4      21   アイン… アルジ…    32.8 N         0.6 W    
-#> 10     1    10        18.6      25.8 アイン… アルジ…    32.8 N         0.6 W    
-#> # … with 41,318 more rows, 1 more variable: altitude <dbl>, and abbreviated
-#> #   variable names ¹​precipitation, ²​latitude, ³​longitude
+#> # A tibble: 41,328 × 12
+#>       no continent country   station month tempe…¹ preci…² latit…³ NS    longi…⁴
+#>    <dbl> <chr>     <chr>     <chr>   <dbl>   <dbl>   <dbl>   <dbl> <chr>   <dbl>
+#>  1 60560 アフリカ  アルジェ… アイン…     1     7.1    14.9    32.8 N         0.6
+#>  2 60560 アフリカ  アルジェ… アイン…     2     9.2    11.2    32.8 N         0.6
+#>  3 60560 アフリカ  アルジェ… アイン…     3    12.9    15.9    32.8 N         0.6
+#>  4 60560 アフリカ  アルジェ… アイン…     4    16.8    16.9    32.8 N         0.6
+#>  5 60560 アフリカ  アルジェ… アイン…     5    21.5    15      32.8 N         0.6
+#>  6 60560 アフリカ  アルジェ… アイン…     6    26.7     6.9    32.8 N         0.6
+#>  7 60560 アフリカ  アルジェ… アイン…     7    31       4.1    32.8 N         0.6
+#>  8 60560 アフリカ  アルジェ… アイン…     8    29.5    13.5    32.8 N         0.6
+#>  9 60560 アフリカ  アルジェ… アイン…     9    24.4    21      32.8 N         0.6
+#> 10 60560 アフリカ  アルジェ… アイン…    10    18.6    25.8    32.8 N         0.6
+#> # … with 41,318 more rows, 2 more variables: WE <chr>, altitude <dbl>, and
+#> #   abbreviated variable names ¹​temperature, ²​precipitation, ³​latitude,
+#> #   ⁴​longitude
 
   # 新たにデータを取得する場合
 station_links %>%
@@ -134,9 +137,9 @@ station_links %>%
 
 ``` r
 climate <- 
-  dplyr::bind_rows(world_climate, japan_climate) %>%
+  dplyr::bind_rows(climate_world, climate_jp) %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)  %>%
-  dplyr::group_by(station) %>%
+  dplyr::group_by(country, station) %>%
   dplyr::filter(sum(is.na(temperature), is.na(precipitation)) == 0) %>%
   dplyr::filter(period != "1991-2020" | is.na(period))
 
@@ -148,7 +151,10 @@ climate <-
   dplyr::left_join(tibble::tibble(WE = c("W", "E"), we = c(-1, 1))) %>%
   dplyr::group_by(station) %>%
   dplyr::mutate(lat = latitude * ns, lon = longitude * we)
-#> Joining, by = "station"
+#> `summarise()` has grouped output by 'country'. You can override using the
+#> `.groups` argument.
+#> Adding missing grouping variables: `country`
+#> Joining, by = c("country", "station")
 #> Joining, by = "NS"
 #> Joining, by = "WE"
 ```

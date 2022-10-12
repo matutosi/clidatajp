@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 The goal of clidatajp is to provide climate data from Japan Meteorological Agency ('JMA').
 Data was downloaded from 'JMA' and edited. 
 You can also download climate data from 'JMA'. 
+However, I strongly recomend you to use data(climate_world) and data(climate_jp) when using mean temperature and precipitation. 
 
 ## Installation
 
@@ -71,7 +72,7 @@ Clean up data before drawing plot.
 climate <- 
   dplyr::bind_rows(climate_world, climate_jp) %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)  %>%
-  dplyr::group_by(station) %>%
+  dplyr::group_by(country, station) %>%
   dplyr::filter(sum(is.na(temperature), is.na(precipitation)) == 0) %>%
   dplyr::filter(period != "1991-2020" | is.na(period))
 

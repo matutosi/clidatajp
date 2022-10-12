@@ -24,6 +24,7 @@ clidatajpは，日本の気象庁(JMA)から取得した気候データを提供
 
 開発中のバージョンは，GitHubからダウンロード可能です．
 また，clidatajpを使わずとも，手作業で気象庁から直接データをダウンロードすることもできます．
+ただし，download_climate()や手作業で新たにデータを取得するよりも，月平均気温と月間降水量については，data(climate_world) と data(climate_jp)の使用をお勧めします．
 
 https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 
@@ -79,7 +80,7 @@ station_links %>%
 climate <- 
   dplyr::bind_rows(climate_world, climate_jp) %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)  %>%
-  dplyr::group_by(station) %>%
+  dplyr::group_by(country, station) %>%
   dplyr::filter(sum(is.na(temperature), is.na(precipitation)) == 0) %>%
   dplyr::filter(period != "1991-2020" | is.na(period))
 
