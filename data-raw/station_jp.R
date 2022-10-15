@@ -72,7 +72,6 @@ region_pref_2 <-  # for test
 region_pref %>%  # test
   dplyr::anti_join(region_pref_2, by="region")
 
-
 station_pref_city <- 
   "https://www.data.jma.go.jp/obd/stats/data/mdrr/chiten/sindex2.html" %>%
   rvest::read_html() %>%
@@ -89,6 +88,7 @@ station_jp <-
   dplyr::mutate_all(stringi::stri_unescape_unicode) %>%
   distinct(no, station, altitude, latitude, longitude, NS, WE) %>%
   dplyr::left_join(station_pref_city) %>%
-  dplyr::right_join(region_pref, .)
+  dplyr::right_join(region_pref, .) %>%
+  dplyr::mutate_all(stringi::stri_escape_unicode)
 
 usethis::use_data(station_jp, overwrite = TRUE)
