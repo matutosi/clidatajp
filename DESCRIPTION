@@ -15,7 +15,9 @@ URL: https://github.com/matutosi/clidatajp
      https://github.com/matutosi/clidatajp/tree/develop (devel)
 LazyData: true
 Imports: 
+    curl,
     dplyr,
+    httr,
     magrittr,
     rlang,
     rvest,
