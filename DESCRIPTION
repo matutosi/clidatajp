@@ -1,6 +1,6 @@
 Package: clidatajp
-Title: Climate Data from Japan Meteorological Agency
-Version: 0.5.0.9000
+Title: Data from Japan Meteorological Agency
+Version: 0.5.1
 Authors@R: 
     person("Toshikazu", "Matsumura", , "matutosi@gmail.com", role = c("aut", "cre"))
 Description: Includes climate data from Japan Meteorological Agency ('JMA') <https://www.jma.go.jp/jma/indexe.html>.
@@ -15,7 +15,9 @@ URL: https://github.com/matutosi/clidatajp
      https://github.com/matutosi/clidatajp/tree/develop (devel)
 LazyData: true
 Imports: 
+    curl,
     dplyr,
+    httr,
     magrittr,
     rlang,
     rvest,
