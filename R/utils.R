@@ -34,6 +34,7 @@ NULL
 #' @references \url{https://gist.github.com/kvasilopoulos/47f24348ed75cdb6365312b17f4b914c}
 #' @param remote_file A string of remote file.
 #' @return      An XML document when successed, or invisible NULL when failed.
+#' @export
 gracefully_fail <- function(remote_file){
   try_GET <- function(x, ...) {
     tryCatch(
