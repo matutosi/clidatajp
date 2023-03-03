@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# clidatajp
+# clidatajp はじめに
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -22,10 +22,22 @@ The goal of clidatajp is to provide climate data from Japan Meteorological Agenc
 Data was downloaded from 'JMA' and edited. 
 You can also download climate data from 'JMA'. 
 
-## Installation
+clidatajpは，日本の気象庁(JMA)から取得した気候データを提供することを目的に開発しました．
+データは，気象庁のページから取得して編集したものです．
+また，気象庁から新たにデータをダウンロードすることも可能です．
 
-You can install the development version of clidatajp from [GitHub](https://github.com/).
+## Installation インストール
+
+You can install the development version of clidatajp from [GitHub](https://github.com/matutosi/clidatajp).
 You can see climate data directly from 'JMA' ( https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/ ). 
+
+開発中のバージョンは，GitHubからダウンロード可能です．
+
+https://github.com/matutosi/clidatajp).
+
+また，clidatajpを使わずとも，手作業で気象庁から直接データをダウンロードすることもできます．
+
+https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 
 ``` r
   # CRAN
@@ -36,20 +48,25 @@ install.packages("clidatajp")
 devtools::install_github("matutosi/clidatajp")
 ```
 
-## Example
 
-This is a basic example which shows you how to solve a common problem:
+## Example 使用例
+
+This is a basic example.
+
+基本的な使い方は以下をご覧ください．
 
 ```{r example}
 library(clidatajp)
 library(tidyverse)
 
   # show station information and link
+  # 観測地点とそのリンクのデータ
 data(station_links)
 station_links %>%
   dplyr::mutate("station" := stringi::stri_unescape_unicode(station))
 
   # show climate data
+  # 観測データ(日本，世界)
 data(japan_climate)
 japan_climate %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
@@ -59,12 +76,15 @@ world_climate %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 
   # download climate data
+  # 新たにデータを取得する場合
 station_links %>%
   `$`("url") %>%
   `[[`(1) %>%
   download_climate()
 ```
 
-## Citation
+## Citation 引用
 
 Toshikazu Matsumura (2022) Tools for download climate data from Japan Meteorological Agency with R. https://github.com/matutosi/clidatajp/.
+
+松村 俊和 (2022) Rを使った気象協会からの観測データの取得ツール. https://github.com/matutosi/clidatajp/ .
