@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# clidatajp
+# clidatajp はじめに
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -21,10 +21,25 @@ Data was downloaded from 'JMA' and edited.
 You can also download climate data from 'JMA'. 
 However, I strongly recomend you to use data(climate_world) and data(climate_jp) when using mean temperature and precipitation. 
 
-## Installation
+clidatajpは，日本の気象庁(JMA)から取得した気候データを提供することを目的に開発しました．
+データは，気象庁のページから取得して編集したものです．
+また，気象庁から新たにデータをダウンロードすることも可能です．
 
-You can install the development version of clidatajp from [GitHub](https://github.com/).
+## Installation インストール
+
+You can install the development version of clidatajp from [GitHub](https://github.com/matutosi/clidatajp).
 You can see climate data directly from 'JMA' ( https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/ ). 
+
+開発中のバージョンは，GitHubからダウンロード可能です．
+
+https://github.com/matutosi/clidatajp).
+
+また，clidatajpを使わずとも，手作業で気象庁から直接データをダウンロードすることもできます．
+
+https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
+
+ただし，download_climate()や手作業で新たにデータを取得するには時間がかかります．
+そのため，月平均気温と月間降水量については，data(climate_world) と data(climate_jp)の使用をお勧めします．
 
 ``` r
   # CRAN
@@ -35,22 +50,27 @@ install.packages("clidatajp")
 devtools::install_github("matutosi/clidatajp")
 ```
 
-## Example
 
-This is a basic example which shows you how to solve a common problem:
+## Example 使用例
+
+This is a basic example.
+
+基本的な使い方は以下をご覧ください．
 
 ```{r example}
 library(clidatajp)
 library(tidyverse)
 
   # show station information and link
+  # 観測地点とそのリンクのデータ
 data(station_links)
 station_links %>%
   dplyr::mutate("station" := stringi::stri_unescape_unicode(station))
 
   # show climate data
-data(climate_jp)
-climate_jp %>%
+  # 観測データ(日本，世界)
+data(japan_climate)
+japan_climate %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 
 data(climate_world)
@@ -58,15 +78,23 @@ climate_world %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 
   # download climate data
+  # 新たにデータを取得する場合
 station_links %>%
   `$`("url") %>%
   `[[`(1) %>%
   download_climate()
 ```
 
-## Plot
+## Plot 図示
 
 Clean up data before drawing plot. 
+
+図化前のデータ整理
+
+    - 世界と日本のデータを結合   
+    - 気温と降水量がNAの地点を除去   
+    - 1991-2020の平年値を使用(日本)   
+    - 緯度経度を整理   
 
 ```{r clean_data}
 climate <- 
@@ -88,6 +116,9 @@ climate <-
 
 Draw a world map with temperature. 
 
+年平均気温を世界地図のように表示．
+ただし，緯度経度は単純な数値のため，正確ではない．
+
 ```{r temperature}
 climate %>%
   ggplot(aes(lon, lat, colour = temp)) +
@@ -99,6 +130,9 @@ climate %>%
 
 
 Draw a world map with precipitation except over 5000 mm/yr (to avoid extended legend).
+
+年間降水量を世界地図のように表示．
+ただし，凡例が引きずられるのを防ぐため，5000mm/年 以上の地点は除去．
 
 ```{r precipitation}
 climate %>%
@@ -112,6 +146,8 @@ climate %>%
 
 
 Show relationships between temperature and precipitation except Japan.
+
+気温と降水量の関係(日本は除外)
 
 ```{r except_japan}
 japan <- stringi::stri_unescape_unicode("\\u65e5\\u672c")
@@ -127,6 +163,8 @@ climate %>%
 
 Show relationships between temperature and precipitation including Japan.
 
+気温と降水量の関係(日本を含む)
+
 ```{r all_data}
 climate %>%
   ggplot(aes(temp, prec)) + 
@@ -139,6 +177,8 @@ climate %>%
 Show relationships between temperature and precipitation. 
 Blue: Japan, red: others. 
 
+気温と降水量の関係(日本：水色，日本以外：赤色)
+
 ```{r compare_japan}
 climate %>%
   dplyr::mutate(jp = (country == japan)) %>%
@@ -150,6 +190,8 @@ climate %>%
 
 ```
 
-## Citation
+## Citation 引用
 
 Toshikazu Matsumura (2022) Tools for download climate data from Japan Meteorological Agency with R. https://github.com/matutosi/clidatajp/.
+
+松村 俊和 (2022) Rを使った気象協会からの観測データの取得ツール. https://github.com/matutosi/clidatajp/ .
