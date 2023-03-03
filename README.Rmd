@@ -41,7 +41,7 @@ https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 ただし，download_climate()や手作業で新たにデータを取得するには時間がかかります．
 そのため，月平均気温と月間降水量については，data(climate_world) と data(climate_jp)の使用をお勧めします．
 
-``` r
+```{r eval = FALSE}
   # CRAN
 install.packages("clidatajp")
 
@@ -59,7 +59,12 @@ This is a basic example.
 
 ```{r example}
 library(clidatajp)
-library(tidyverse)
+library(magrittr)
+library(dplyr)
+library(tibble)
+library(ggplot2)
+library(stringi)
+
 
   # show station information and link
   # 観測地点とそのリンクのデータ
@@ -194,4 +199,4 @@ climate %>%
 
 Toshikazu Matsumura (2022) Tools for download climate data from Japan Meteorological Agency with R. https://github.com/matutosi/clidatajp/.
 
-松村 俊和 (2022) Rを使った気象協会からの観測データの取得ツール. https://github.com/matutosi/clidatajp/ .
+松村 俊和 (2022) Rを使った気象庁からの観測データの取得ツール. https://github.com/matutosi/clidatajp/ .

@@ -1,5 +1,5 @@
 
-# clidatajp
+# clidatajp はじめに
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -10,11 +10,28 @@ edited. You can also download climate data from ‘JMA’. However, I
 strongly recomend you to use data(climate_world) and data(climate_jp)
 when using mean temperature and precipitation.
 
-## Installation
+clidatajpは，日本の気象庁(JMA)から取得した気候データを提供することを目的に開発しました．
+データは，気象庁のページから取得して編集したものです．
+また，気象庁から新たにデータをダウンロードすることも可能です．
+
+## Installation インストール
 
 You can install the development version of clidatajp from
-[GitHub](https://github.com/). You can see climate data directly from
-‘JMA’ ( <https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/> ).
+[GitHub](https://github.com/matutosi/clidatajp). You can see climate
+data directly from ‘JMA’ (
+<https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/> ).
+
+開発中のバージョンは，GitHubからダウンロード可能です．
+
+<https://github.com/matutosi/clidatajp>).
+
+また，clidatajpを使わずとも，手作業で気象庁から直接データをダウンロードすることもできます．
+
+<https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/>
+
+ただし，download_climate()や手作業で新たにデータを取得するには時間がかかります．
+そのため，月平均気温と月間降水量については，data(climate_world) と
+data(climate_jp)の使用をお勧めします．
 
 ``` r
   # CRAN
@@ -25,44 +42,53 @@ install.packages("clidatajp")
 devtools::install_github("matutosi/clidatajp")
 ```
 
-## Example
+## Example 使用例
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example.
+
+基本的な使い方は以下をご覧ください．
 
 ``` r
 library(clidatajp)
-library(tidyverse)
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-#> ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
-#> ✔ tibble  3.1.8      ✔ dplyr   1.0.10
-#> ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-#> ✔ readr   2.1.2      ✔ forcats 0.5.2 
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+library(magrittr)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+library(tibble)
+library(ggplot2)
+library(stringi)
+
 
   # show station information and link
+  # 観測地点とそのリンクのデータ
 data(station_links)
 station_links %>%
   dplyr::mutate("station" := stringi::stri_unescape_unicode(station))
-#> # A tibble: 3,444 × 3
-#>    no    station                                                         url    
-#>    <chr> <chr>                                                           <chr>  
-#>  1 1     アインセフラ - アルジェリア   緯度：32.77°N   経度：0.60°W   …  https:…
-#>  2 2     アドラル - アルジェリア   緯度：27.88°N   経度：0.18°W   高度…  https:…
-#>  3 3     アルジェ - アルジェリア   緯度：36.77°N   経度：3.10°E   高度…  https:…
-#>  4 4     アンナバ - アルジェリア   緯度：36.83°N   経度：7.82°E   高度…  https:…
-#>  5 5     イナメナス - アルジェリア   緯度：28.05°N   経度：9.63°E   高…  https:…
-#>  6 6     イリジ - アルジェリア   緯度：26.50°N   経度：8.42°E   高度：5… https:…
-#>  7 7     インゲザム - アルジェリア   緯度：19.57°N   経度：5.77°E   高…  https:…
-#>  8 8     インサラー - アルジェリア   緯度：27.23°N   経度：2.50°E   高…  https:…
-#>  9 9     ウェド - アルジェリア   緯度：33.50°N   経度：6.78°E   高度：6… https:…
-#> 10 10    ウームエルブワギー - アルジェリア   緯度：35.87°N   経度：7.12… https:…
-#> # … with 3,434 more rows
+#> # A tibble: 3,444 × 4
+#>    no    station                                                  url    conti…¹
+#>    <chr> <chr>                                                    <chr>  <chr>  
+#>  1 60560 アインセフラ - アルジェリア   緯度：32.77°N   経度：0.6… https… "\\u30…
+#>  2 60620 アドラル - アルジェリア   緯度：27.88°N   経度：0.18°W…  https… "\\u30…
+#>  3 60369 アルジェ - アルジェリア   緯度：36.77°N   経度：3.10°E…  https… "\\u30…
+#>  4 60360 アンナバ - アルジェリア   緯度：36.83°N   経度：7.82°E…  https… "\\u30…
+#>  5 60611 イナメナス - アルジェリア   緯度：28.05°N   経度：9.63…  https… "\\u30…
+#>  6 60640 イリジ - アルジェリア   緯度：26.50°N   経度：8.42°E  …  https… "\\u30…
+#>  7 60690 インゲザム - アルジェリア   緯度：19.57°N   経度：5.77…  https… "\\u30…
+#>  8 60630 インサラー - アルジェリア   緯度：27.23°N   経度：2.50…  https… "\\u30…
+#>  9 60559 ウェド - アルジェリア   緯度：33.50°N   経度：6.78°E  …  https… "\\u30…
+#> 10 60421 ウームエルブワギー - アルジェリア   緯度：35.87°N   経…  https… "\\u30…
+#> # … with 3,434 more rows, and abbreviated variable name ¹​continent
 
   # show climate data
-data(climate_jp)
-climate_jp %>%
+  # 観測データ(日本，世界)
+data(japan_climate)
+japan_climate %>%
   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 #> # A tibble: 3,768 × 14
 #>       no station month temperat…¹ preci…² snowf…³ insol…⁴ country period altit…⁵
@@ -102,6 +128,7 @@ climate_world %>%
 #> #   ⁴​longitude
 
   # download climate data
+  # 新たにデータを取得する場合
 station_links %>%
   `$`("url") %>%
   `[[`(1) %>%
@@ -125,9 +152,16 @@ station_links %>%
 #> #   ²​longitude, ³​altitude, ⁴​temperature, ⁵​precipitation
 ```
 
-## Plot
+## Plot 図示
 
 Clean up data before drawing plot.
+
+図化前のデータ整理
+
+    - 世界と日本のデータを結合   
+    - 気温と降水量がNAの地点を除去   
+    - 1991-2020の平年値を使用(日本)   
+    - 緯度経度を整理   
 
 ``` r
 climate <- 
@@ -148,12 +182,19 @@ climate <-
 #> `summarise()` has grouped output by 'country'. You can override using the
 #> `.groups` argument.
 #> Adding missing grouping variables: `country`
-#> Joining, by = c("country", "station")
-#> Joining, by = "NS"
-#> Joining, by = "WE"
+#> Joining with `by = join_by(country, station)`
+#> Warning in dplyr::left_join(., dplyr::distinct(dplyr::select(climate, station:altitude))): Each row in `x` is expected to match at most 1 row in `y`.
+#> ℹ Row 1 of `x` matches multiple rows.
+#> ℹ If multiple matches are expected, set `multiple = "all"` to silence this
+#>   warning.
+#> Joining with `by = join_by(NS)`
+#> Joining with `by = join_by(WE)`
 ```
 
 Draw a world map with temperature.
+
+年平均気温を世界地図のように表示．
+ただし，緯度経度は単純な数値のため，正確ではない．
 
 ``` r
 climate %>%
@@ -172,6 +213,9 @@ climate %>%
 Draw a world map with precipitation except over 5000 mm/yr (to avoid
 extended legend).
 
+年間降水量を世界地図のように表示．
+ただし，凡例が引きずられるのを防ぐため，5000mm/年 以上の地点は除去．
+
 ``` r
 climate %>%
   dplyr::filter(prec < 5000) %>%
@@ -188,6 +232,8 @@ climate %>%
 ```
 
 Show relationships between temperature and precipitation except Japan.
+
+気温と降水量の関係(日本は除外)
 
 ``` r
 japan <- stringi::stri_unescape_unicode("\\u65e5\\u672c")
@@ -208,6 +254,8 @@ climate %>%
 Show relationships between temperature and precipitation including
 Japan.
 
+気温と降水量の関係(日本を含む)
+
 ``` r
 climate %>%
   ggplot(aes(temp, prec)) + 
@@ -224,6 +272,8 @@ climate %>%
 Show relationships between temperature and precipitation. Blue: Japan,
 red: others.
 
+気温と降水量の関係(日本：水色，日本以外：赤色)
+
 ``` r
 climate %>%
   dplyr::mutate(jp = (country == japan)) %>%
@@ -239,7 +289,10 @@ climate %>%
   # ggsave("climate_compare_jp.png")
 ```
 
-## Citation
+## Citation 引用
 
 Toshikazu Matsumura (2022) Tools for download climate data from Japan
 Meteorological Agency with R. <https://github.com/matutosi/clidatajp/>.
+
+松村 俊和 (2022) Rを使った気象庁からの観測データの取得ツール.
+<https://github.com/matutosi/clidatajp/> .
