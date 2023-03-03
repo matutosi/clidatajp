@@ -22,7 +22,9 @@
 #'   \item{altitude     }{Altitude (m)}
 #' }
 #' @examples
-#' library(tidyverse)
+#' library(magrittr)
+#' library(stringi)
+#' library(dplyr)
 #' data(japan_climate)
 #' japan_climate %>%
 #'   dplyr::mutate_all(stringi::stri_unescape_unicode)
@@ -55,7 +57,9 @@
 #'   \item{altitude     }{Altitude (m)}
 #' }
 #' @examples
-#' library(tidyverse)
+#' library(magrittr)
+#' library(stringi)
+#' library(dplyr)
 #' data(world_climate)
 #' world_climate %>%
 #'   dplyr::mutate_all(stringi::stri_unescape_unicode)
@@ -75,7 +79,9 @@
 #'   \item{continent    }{Continent. Escaped by stringi::stri_escape_unicode().}
 #' }
 #' @examples
-#' library(tidyverse)
+#' library(magrittr)
+#' library(stringi)
+#' library(dplyr)
 #' data(station_links)
 #' station_links %>%
 #'   dplyr::mutate_all(stringi::stri_unescape_unicode)
@@ -83,22 +89,17 @@
 
 #' Climate stations in Japan
 #' 
-#' @format A data frame with 157 rows and 11 variable: 
+#' @format A data frame with 3444 rows and 4 variable: 
 #' \describe{
-#'   \item{region       }{Region in Japan}
-#'   \item{pref         }{Prefecture in Japan}
 #'   \item{no           }{Station no}
 #'   \item{station      }{Station name. To avoid duplication, including country name after station name. Can split by "_". Escaped by stringi::stri_escape_unicode().}
-#'   \item{altitude     }{Altitude (m)}
-#'   \item{latitude     }{Latitude (degree)}
-#'   \item{NS           }{North or South.}
-#'   \item{longitude    }{Longitude (degree)}
-#'   \item{WE           }{West or East}
-#'   \item{yomi         }{Japanese pronunciation of station}
-#'   \item{city         }{Location of station}
+#'   \item{url          }{URL}
+#'   \item{Continent    }{Continent}
 #' }
 #' @examples
-#' library(tidyverse)
+#' library(magrittr)
+#' library(stringi)
+#' library(dplyr)
 #' data(station_jp)
 #' station_jp %>%
 #'   dplyr::mutate_all(stringi::stri_unescape_unicode)
@@ -119,7 +120,9 @@
 #'   \item{WE           }{West or East}
 #' }
 #' @examples
-#' library(tidyverse)
+#' library(magrittr)
+#' library(stringi)
+#' library(dplyr)
 #' data(station_world)
 #' station_world %>%
 #'   dplyr::mutate_all(stringi::stri_unescape_unicode)

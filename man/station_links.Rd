@@ -20,7 +20,9 @@ station_links
 Station name and its URL
 }
 \examples{
-library(tidyverse)
+library(magrittr)
+library(stringi)
+library(dplyr)
 data(station_links)
 station_links \%>\%
   dplyr::mutate_all(stringi::stri_unescape_unicode)

@@ -25,7 +25,9 @@ station_world
 Climate stations of the world
 }
 \examples{
-library(tidyverse)
+library(magrittr)
+library(stringi)
+library(dplyr)
 data(station_world)
 station_world \%>\%
   dplyr::mutate_all(stringi::stri_unescape_unicode)

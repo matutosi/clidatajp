@@ -1,14 +1,18 @@
 # clidatajp release news
 
 
-# clidatajp 0.5.1.9000
+# clidatajp 0.5.2.9000
 
 * TODO
   * Add function for downloading detail data from 'JMA'
   * Add functions for calculating 'ci' (cool index) and 'wi' (warm index).
 
+# clidatajp 0.5.2
+
 * Add data
-    * `climate_station` include ..........
+    * `climate_station` include ULR of 3444 stations
+    * `station_jp` include information of 157 stations
+    * `station_world` include information of 3444 stations
 
 * Rename data
     * `japan_climate` to `climate_jp`

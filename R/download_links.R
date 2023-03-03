@@ -14,7 +14,10 @@
 #' # If you want links for all countries and all sations, remove head().
 #' # The codes take over 5 sec because of poliste scraping.
 #' \donttest{
-#' library(tidyverse)
+#' library(magrittr)
+#' library(stringi)
+#' library(dplyr)
+#' library(tibble)
 #' area_links <- download_area_links()
 #' station_links <- NULL
 #' continent     <- NULL

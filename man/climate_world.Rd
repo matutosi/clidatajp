@@ -36,7 +36,9 @@ URLs of each station are listed in data(station_links).
 https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 }
 \examples{
-library(tidyverse)
+library(magrittr)
+library(stringi)
+library(dplyr)
 data(world_climate)
 world_climate \%>\%
   dplyr::mutate_all(stringi::stri_unescape_unicode)

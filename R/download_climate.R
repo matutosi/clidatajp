@@ -14,7 +14,9 @@
 #' # If you want all climate data, remove head().
 #' # The codes take > 5 sec because of poliste scraping.
 #' \donttest{
-#' library(tidyverse)
+#' library(magrittr)
+#' library(stringi)
+#' library(dplyr)
 #' data(station_links)
 #' station_links <-
 #'   station_links %>%
