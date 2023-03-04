@@ -43,12 +43,14 @@ for(i in seq_along(station_links)){
   print(stringr::str_c(i, " / ", length(station_links)))
   climate[[i]] <- download_climate(station_links[i])
 }
-month_per_year <- 12
-climate_world <- 
-  dplyr::bind_rows(climate) \%>\%
-  dplyr::bind_cols(tibble::tibble(continent = rep(continent, month_per_year))) \%>\%
-  dplyr::bind_cols(tibble::tibble(no        = rep(no,        month_per_year))) \%>\%
-  dplyr::relocate(no, continent, country, station)
-climate_world
+if(length(climate) > 0){ # run only when download_climate() successed
+  month_per_year <- 12
+  climate_world <- 
+    dplyr::bind_rows(climate) \%>\%
+    dplyr::bind_cols(tibble::tibble(continent = rep(continent, month_per_year))) \%>\%
+    dplyr::bind_cols(tibble::tibble(no        = rep(no,        month_per_year))) \%>\%
+    dplyr::relocate(no, continent, country, station)
+  climate_world
+}
 }
 }
