@@ -10,3 +10,7 @@
 ^READMEjp.Rmd$
 ^READMEjp.md$
 ^CRAN-SUBMISSION$
+^data/climate_jp_full.rda$
+^data/climate_jp_full_tmp.rda$
+^data/mean_cli.rda$
+^data/station_jp_full.rda$

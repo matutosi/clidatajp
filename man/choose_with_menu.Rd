@@ -21,17 +21,19 @@ else return a vector.
 Choose data with menu.
 }
 \examples{
-data(climate_world)
-climate_world <- 
-  climate_world \%>\%
-  dplyr::mutate_all(stringi::stri_unescape_unicode)
-
-choose_with_menu(climate_world, filter_cols = "continent")
-4  # input
-
-choose_with_menu(climate_world, filter_cols = c("continent", "country", "station"))
-4  # input
-3  # input
-2  # input
+if(interactive()){
+  data(climate_world)
+  climate_world <- 
+    climate_world \%>\%
+    dplyr::mutate_all(stringi::stri_unescape_unicode)
+  
+  choose_with_menu(climate_world, filter_cols = "continent")
+  4  # input
+  
+  choose_with_menu(climate_world, filter_cols = c("continent", "country", "station"))
+  4  # input
+  3  # input
+  2  # input
+}
 
 }

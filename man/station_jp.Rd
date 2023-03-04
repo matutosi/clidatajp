@@ -7,10 +7,17 @@
 \format{
 A data frame with 3444 rows and 4 variable:
 \describe{
-\item{no           }{Station no}
+\item{region       }{Rejon. Escaped by stringi::stri_escape_unicode().}
+\item{pref         }{Prefecture. Escaped by stringi::stri_escape_unicode()}
+\item{no           }{Station no.}
 \item{station      }{Station name. To avoid duplication, including country name after station name. Can split by "_". Escaped by stringi::stri_escape_unicode().}
-\item{url          }{URL}
-\item{Continent    }{Continent}
+\item{altitude     }{Altitude. (m)}
+\item{latitude     }{Latitude. (degree)}
+\item{longitude    }{Longitude. (degree)}
+\item{NS           }{North or South.}
+\item{WE           }{West or East.}
+\item{yomi         }{Pronunciation in Japanese. Escaped by stringi::stri_escape_unicode()}
+\item{city         }{City name. Escaped by stringi::stri_escape_unicode().}
 }
 }
 \usage{

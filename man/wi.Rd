@@ -11,8 +11,6 @@ ci(x)
 }
 \arguments{
 \item{x}{A numeric vector}
-
-\item{df}{}
 }
 \value{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{A string vector of url links.
@@ -25,8 +23,6 @@ Calculate warm index and cold index
 temp <- c(-7.8, -7.2, -2.4, 5.2, 11.7, 16.5, 20.5, 21.1, 15.6, 8.8, 2.0, -4.1)
 wi(temp)
 ci(temp)
-
-
 wi <- sum(c(0, 0, 0, 0.2, 6.7, 11.5, 15.5, 16.1, 10.6, 3.8, 0, 0))
 ci <- sum(c(12.8, 12.2, 7.4, 0, 0, 0, 0, 0, 0, 0, 3.0, 9.1))
 
