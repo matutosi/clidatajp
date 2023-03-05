@@ -198,7 +198,7 @@ Draw a world map with temperature.
 
 ``` r
 climate %>%
-  ggplot(aes(lon, lat, colour = temp)) +
+  ggplot2::ggplot(aes(lon, lat, colour = temp)) +
     scale_colour_gradient2(low = "blue", mid = "gray", high = "red", midpoint = 15) + 
     geom_point() + 
     theme_bw()
@@ -219,7 +219,7 @@ extended legend).
 ``` r
 climate %>%
   dplyr::filter(prec < 5000) %>%
-  ggplot(aes(lon, lat, colour = prec)) +
+  ggplot2::ggplot(aes(lon, lat, colour = prec)) +
     scale_colour_gradient2(low = "yellow", mid = "gray", high = "blue", midpoint = 1500) + 
     geom_point() + 
     theme_bw()
@@ -239,7 +239,7 @@ Show relationships between temperature and precipitation except Japan.
 japan <- stringi::stri_unescape_unicode("\\u65e5\\u672c")
 climate %>%
   dplyr::filter(country != japan) %>%
-  ggplot(aes(temp, prec)) + 
+  ggplot2::ggplot(aes(temp, prec)) + 
   geom_point() + 
   theme_bw() + 
   theme(legend.position="none")
@@ -258,7 +258,7 @@ Japan.
 
 ``` r
 climate %>%
-  ggplot(aes(temp, prec)) + 
+  ggplot2::ggplot(aes(temp, prec)) + 
     geom_point() + 
     theme_bw()
 ```
@@ -277,7 +277,7 @@ red: others.
 ``` r
 climate %>%
   dplyr::mutate(jp = (country == japan)) %>%
-  ggplot(aes(temp, prec, colour = jp)) + 
+  ggplot2::ggplot(aes(temp, prec, colour = jp)) + 
     geom_point() + 
     theme_bw() +
     theme(legend.position="none")
