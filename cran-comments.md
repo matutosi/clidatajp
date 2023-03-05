@@ -11,13 +11,19 @@
 
 ## R CMD check results
 
-There were 0 ERRORs, 0 WARNINGs, and 1 NOTEs.
+There were 0 ERRORs, 0 WARNINGs, and 2 NOTEs.
 
 * checking for detritus in the temp directory ... NOTE   
   Found the following files/directories:   
     'lastMiKTeXException'   
 
-check_rhub() on Windows Server shows this note. 
+  check_rhub() on Windows Server shows this note. 
+
+
+* checking HTML version of manual ... NOTE
+  Skipping checking HTML validation: no command 'tidy' found
+
+  check_rhub() on Fedora Linux shows this note.
 
 ## Downstream dependencies
 
