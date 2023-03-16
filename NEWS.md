@@ -11,7 +11,7 @@
 * 2023-03-05
 
 * Add data
-    * `climate_station` include ULR of 3444 stations
+    * `climate_station` include URL of 3444 stations
     * `station_jp` include information of 157 stations
     * `station_world` include information of 3444 stations
 

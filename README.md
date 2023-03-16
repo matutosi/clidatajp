@@ -7,7 +7,7 @@
 The goal of clidatajp is to provide climate data from Japan
 Meteorological Agency (‘JMA’). Data was downloaded from ‘JMA’ and
 edited. You can also download climate data from ‘JMA’. However, I
-strongly recomend you to use data(climate_world) and data(climate_jp)
+strongly recommend you to use data(climate_world) and data(climate_jp)
 when using mean temperature and precipitation.
 
 clidatajpは，日本の気象庁(JMA)から取得した気候データを提供することを目的に開発しました．
