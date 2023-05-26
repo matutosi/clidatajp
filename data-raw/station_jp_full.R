@@ -42,8 +42,8 @@ cols <-
 station_jp_full <- 
   station %>%
   dplyr::mutate(html = html %>%
-    stringr::str_replace_all('\\\"|\\\'|\\(|\\)|&amp', '') %>%
-    stringr::str_replace_all('\\n.+', '') %>%
+    stringr::str_remove_all('\\\"|\\\'|\\(|\\)|&amp') %>%
+    stringr::str_remove_all('\\n.+') %>%
     stringr::str_replace_all(".+alt=(.+) *coords.+prec_no=([0-9]+);block_no=([0-9]+);year=.+onmouseover=javascript:viewPoint(.+); onmouseout.+", "\\1 \\2 \\3 \\4") %>%
     stringr::str_replace_all(' ', ',')) %>%
   dplyr::filter(!stringr::str_detect(html, "^<area,shape=")) %>%

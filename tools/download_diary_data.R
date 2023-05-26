@@ -89,7 +89,6 @@ search_station()
   #   s: ???
 
 
-
 ## 市町村の取り出し(不要)
   # 途中で中断
   #   気象庁のページに一覧があったたため
@@ -107,7 +106,7 @@ pref_city <-
   tibble::as_tibble() %>%
   tidyr::separate(value, into = c("pref", "city"), sep = " ") %>%
   na.omit() %>%
-  dplyr::mutate(station = stringr::str_replace_all(city, "[市町村]$", ""))
+  dplyr::mutate(station = stringr::str_remove_all(city, "[市町村]$"))
 
 station %>%
   dplyr::left_join(pref_city) %>%

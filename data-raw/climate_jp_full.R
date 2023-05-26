@@ -165,7 +165,7 @@ data(climate_jp_full_tmp)
 climate_jp_full_tmp
 
 climate_jp_full_tmp %>%
-  dplyr::mutate(month = stringr::str_replace(month, "月", "")) %>%
+  dplyr::mutate(month = stringr::str_remove(month, "月")) %>%
   dplyr::mutate(month = stringr::str_replace(month, "年", "0")) %>%
   dplyr::mutate_all(~stringr::str_replace(., "///", NA_character_)) %>%
   dplyr::mutate_all(~stringr::str_replace(., "---", NA_character_))
