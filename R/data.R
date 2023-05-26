@@ -89,7 +89,7 @@
 
 #' Climate stations in Japan
 #' 
-#' @format A data frame with 3444 rows and 4 variable: 
+#' @format A data frame with 157 rows and 11 variable: 
 #' \describe{
 #'   \item{region       }{Region. Escaped by stringi::stri_escape_unicode().}
 #'   \item{pref         }{Prefecture. Escaped by stringi::stri_escape_unicode()}
