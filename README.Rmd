@@ -46,8 +46,8 @@ https://www.data.jma.go.jp/gmd/cpd/monitor/nrmlist/
 install.packages("clidatajp")
 
   # development
-  # install.packages("devtools")
-devtools::install_github("matutosi/clidatajp")
+  # install.packages("remotes")
+remotes::install_github("matutosi/clidatajp")
 ```
 
 
