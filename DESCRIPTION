@@ -8,7 +8,6 @@ Description: Includes climate data from Japan Meteorological Agency ('JMA') <htt
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
 Depends: 
     R (>= 3.5.0)
 URL: https://github.com/matutosi/clidatajp
@@ -21,6 +20,7 @@ Imports:
     magrittr,
     rlang,
     rvest,
+    stats,
     stringi,
     stringr,
     tibble,
@@ -35,3 +35,4 @@ VignetteBuilder:
     knitr
 Config/testthat/edition: 3
 Language: en-US
+Config/roxygen2/version: 8.1.0

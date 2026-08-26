@@ -152,6 +152,36 @@ station_links %>%
 #> #   ²​longitude, ³​altitude, ⁴​temperature, ⁵​precipitation
 ```
 
+## Detail data 詳細データ
+
+Japan Meteorological Agency ('JMA') provides detail climate data
+(yearly, monthly, daily, hourly and 10 minutes values) for each station in Japan.
+A station is specified by a pair of `prec_no` (area) and `block_no` (station).
+
+気象庁は，日本の各地点の詳細データ (年別・月別・日別・時別・10分別) を公開しています．
+地点は `prec_no` (地域) と `block_no` (観測地点) の組で指定します．
+
+``` r
+  # area no and station no
+  # 地域番号と観測地点番号
+prec_no <- download_prec_no()
+prec_no
+
+block_no <- download_block_no(61)
+block_no
+
+  # build url and download detail data
+  # url を作って詳細データを取得
+url <- detail_url(prec_no = 61, block_no = 47759, item = "daily",
+                  year = 2023, month = 6)
+download_detail(url)
+
+  # 10 min values of an AMeDAS station
+  # アメダス地点の10分別値
+detail_url(61, "0588", "10min", 2023, 6, 20) %>%
+  download_detail()
+```
+
 ## Plot 図示
 
 Clean up data before drawing plot.

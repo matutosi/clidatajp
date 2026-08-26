@@ -7,10 +7,14 @@
 * Add functions
     * `wi()` and `ci()` calculate warm index and cold index (Kira 1945).
 
-* Update installation instructions to use 'remotes' package.
+* Add functions for detail climate data in Japan
+    * `detail_url()` builds urls of detail data
+      (yearly, monthly, daily, hourly and 10 minutes values).
+    * `download_detail()` downloads the data of the url.
+    * `download_prec_no()` and `download_block_no()` get numbers to
+      specify a station.
 
-* TODO
-  * Add function for downloading detail data from 'JMA'
+* Update installation instructions to use 'remotes' package.
 
 # clidatajp 0.5.2
 
