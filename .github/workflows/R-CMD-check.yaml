@@ -1,8 +1,9 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 on:
+    # main は develop の fast-forward なので，develop で見れば足りる
+    # (同じツリーを 2 回 check しない)
   push:
-    branches: [main, develop]
-    paths-ignore: ['docs/**']
+    branches: [develop]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -14,6 +15,10 @@ permissions: read-all
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
