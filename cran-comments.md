@@ -15,17 +15,16 @@
 
 ## Test environments
 
-* Windows 11
-    * R 4.6.1 (local)
-* Windows Server 2025
-    * R-release (GitHub Actions)
-    * R-devel (R-hub, win-builder)
-* macOS 15
-    * R-release (GitHub Actions)
-    * R-devel (R-hub)
-* Ubuntu 24.04
-    * R-release, R-oldrel-1 (GitHub Actions)
-    * R-devel (GitHub Actions, R-hub)
+* local
+    * Windows 11, R 4.6.1
+* devtools::check_win_devel()
+    * win-builder.r-project.org, R-devel (2026-08-24 r90445 ucrt)
+* rhub::rhub_check()
+    * linux (R-devel) on GitHub
+    * macos (R-devel) on GitHub
+    * windows (R-devel) on GitHub
+* GitHub Actions (r-lib/actions)
+    * ubuntu (R-release, R-oldrel-1), macos (R-release), windows (R-release)
 
 ## R CMD check results
 
