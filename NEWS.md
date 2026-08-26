@@ -1,10 +1,16 @@
 # clidatajp release news
 
-# clidatajp 0.5.2.9000
+# clidatajp 0.5.3
+
+* 2026-08-26
+
+* Add functions
+    * `wi()` and `ci()` calculate warm index and cold index (Kira 1945).
+
+* Update installation instructions to use 'remotes' package.
 
 * TODO
   * Add function for downloading detail data from 'JMA'
-  * Add functions for calculating 'ci' (cool index) and 'wi' (warm index).
 
 # clidatajp 0.5.2
 
