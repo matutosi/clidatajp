@@ -19,6 +19,11 @@
   **`develop` の 4 コミットを `main` へ merge して push した** (fast-forward)．
   差分は README の導入手順・`str_remove()` 化・バグ修正・CLAUDE.md 追加．
 
+- 2026-08-26 20:52
+  **pkgdown の公開を gh-pages ブランチ方式に変えた**．main へ docs/ をコミットする形は
+  CI のたびに各 PC で pull が要り Dropbox 同期とも食い違うため．`docs/` の追跡をやめ，
+  `build_site_github_pages()` + deploy action で gh-pages へ置く形にそろえた (screenshot・pivotea と同じ)．
+
 - 2026-08-26 20:36
   **CRAN 提出準備と GitHub Actions の導入まで済ませた**．`climate_jp_full_tmp` を `data/` から外し
   (data-raw の保存先も正式名へ)，`cran-comments.md` を 0.5.3 向けに書き直した
@@ -47,10 +52,12 @@
   (提出後に届くメールで本人確認が要るので，実行はユーザ)．
   出す前に `devtools::check_win_devel()` と rhub を回し，結果を `cran-comments.md` の
   「Test environments」へ足すとよい (今は手元の Windows のみ)．
-- **【注意】pkgdown の GitHub Actions は main へ docs/ をコミットする**．
-  CI が走った後は**各 PC で `git pull` が要る** (Dropbox 同期と食い違うと面倒なので，
-  main を触る前に必ず pull する)．
-- 手で建て直すときは `pkgdown::build_site()`．**削除した topic のページは pkgdown が消さない**ので，
-  `docs/reference/` と `docs/sitemap.xml` から手で外す (2026-08-26 に `climate_jp_full_tmp` で実例)．
+- **pkgdown の公開は gh-pages ブランチ方式** (2026-08-26 に main / docs から変更)．
+  `docs/` は追跡せず (`.gitignore`)，main へ push すると CI が建てて gh-pages へ配置する．
+  **リポジトリには docs/ が入らないので，CI 後に `git pull` は要らない**．
+  screenshot・pivotea と同じ形．
+- 手で建て直すときは `pkgdown::build_site()` (結果はローカルだけに残る)．
+  **削除した topic のページは pkgdown が消さない**ので，`docs/` を消してから建て直すと確実
+  (2026-08-26 に `climate_jp_full_tmp` のページが残った実例)．
 - Dropbox がファイルを掴んでいると `pkgdown` の後片付けが `EBUSY` で落ちることがある
   (ビルド自体は完走している)．`vignettes/--find-assets.html` のような残骸が出たら消す．
