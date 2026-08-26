@@ -1,24 +1,26 @@
-# Build the pkgdown site and commit it to docs/ of main,
-# because GitHub Pages of this repository is served from main / docs.
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
     branches: [main]
-    paths-ignore: ['docs/**']
+  pull_request:
+    branches: [main]
+  release:
+    types: [published]
   workflow_dispatch:
 
 name: pkgdown
 
-permissions:
-  contents: write
-
 jobs:
   pkgdown:
     runs-on: ubuntu-latest
+    # Only restrict concurrency for non-PR jobs
     concurrency:
-      group: pkgdown-${{ github.ref }}
+      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -34,17 +36,13 @@ jobs:
           needs: website
 
       - name: Build site
-        run: pkgdown::build_site(new_process = FALSE, install = FALSE)
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
-      - name: Commit docs
-        run: |
-          git config --local user.name  "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs
-          if git diff --staged --quiet; then
-            echo "No change in docs/"
-          else
-            git commit -m "docs: rebuild pkgdown site [skip ci]"
-            git push
-          fi
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          clean: false
+          branch: gh-pages
+          folder: docs
