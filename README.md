@@ -2,6 +2,8 @@
 # clidatajp はじめに
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/matutosi/clidatajp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/matutosi/clidatajp/actions/workflows/R-CMD-check.yaml)
+[![CRAN status](https://www.r-pkg.org/badges/version/clidatajp)](https://CRAN.R-project.org/package=clidatajp)
 <!-- badges: end -->
 
 The goal of clidatajp is to provide climate data from Japan
