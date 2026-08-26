@@ -11,3 +11,6 @@
 ^READMEjp.md$
 ^CRAN-SUBMISSION$
 ^\.claude$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

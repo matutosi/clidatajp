@@ -1,0 +1,39 @@
+url: https://matutosi.github.io/clidatajp/
+template:
+  bootstrap: 5
+
+reference:
+- title: Climate data of the world
+  desc: Download links and climate data from 'JMA' web pages.
+  contents:
+  - download_links
+  - download_climate
+  - clean_station
+- title: Detail climate data in Japan
+  desc: Yearly, monthly, daily, hourly and 10 minutes values of each station.
+  contents:
+  - detail_url
+  - download_detail
+  - download_prec_no
+  - detail_colnames
+- title: Climate indices
+  contents:
+  - wi
+- title: Data
+  contents:
+  - climate_jp
+  - climate_world
+  - climate_jp_full
+  - mean_cli
+  - station_jp
+  - station_world
+  - station_jp_full
+  - station_links
+- title: Utilities
+  contents:
+  - choose_with_menu
+  - gracefully_fail
+  - sleep
+  - as_numeric_without_warnings
+  - head_3
+  - "%>%"
