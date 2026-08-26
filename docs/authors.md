@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/matutosi/clidatajp/blob/HEAD/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/matutosi/clidatajp/blob/main/DESCRIPTION)
 
 Matsumura T (2026). *clidatajp: Data from Japan Meteorological Agency*.
 R package version 0.5.3, <https://github.com/matutosi/clidatajp>.
