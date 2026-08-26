@@ -150,21 +150,21 @@ clean_climate <- function(climate){
   # clean_climate(mean_cli[[2]])
   # clean_climate(mean_cli[[1066]])
 
-climate_jp_full_tmp <- 
+climate_jp_full <- 
   mean_cli %>%
   purrr::map(clean_climate) %>%
   dplyr::bind_rows()
 
-usethis::use_data(climate_jp_full_tmp, overwrite = TRUE)
+usethis::use_data(climate_jp_full, overwrite = TRUE)
 
 
 ## 
 devtools::load_all(".")
 library(tidyverse)
-data(climate_jp_full_tmp)
-climate_jp_full_tmp
+data(climate_jp_full)
+climate_jp_full
 
-climate_jp_full_tmp %>%
+climate_jp_full %>%
   dplyr::mutate(month = stringr::str_remove(month, "月")) %>%
   dplyr::mutate(month = stringr::str_replace(month, "年", "0")) %>%
   dplyr::mutate_all(~stringr::str_replace(., "///", NA_character_)) %>%
@@ -175,7 +175,7 @@ climate_jp_full_tmp %>%
 
 data(climate_world)
 climate_world
-climate_jp_full_tmp
+climate_jp_full
 
 
 
@@ -185,13 +185,13 @@ climate_jp_full_tmp
 
 
 
-climate_jp_full_tmp %>%
+climate_jp_full %>%
   dplyr::filter(month == "年") %>%
   dplyr::filter(precipitation != "///") %>%
   dplyr::filter(temperature   != "///")
 
 
-climate_jp_full_tmp %>%
+climate_jp_full %>%
   dplyr::filter(month == "年") %>%
   dplyr::filter(precipitation != "///") %>%
   dplyr::filter(temperature   != "///") %>%
@@ -200,7 +200,7 @@ climate_jp_full_tmp %>%
   dplyr::filter(is.na(precipitation)) %>%
   select(station_no)  # 47821
 
-climate_jp_full_tmp %>%
+climate_jp_full %>%
   dplyr::filter(month == "年") %>%
   dplyr::filter(precipitation != "///") %>%
   dplyr::filter(temperature   != "///") %>%
@@ -215,7 +215,7 @@ climate_jp_full_tmp %>%
   #   print() %>%
   #   dplyr::arrange(desc(precipitation))
 
-  # climate_jp_full_tmp %>%
+  # climate_jp_full %>%
   #   filter(station_no == "47821")
 
 
@@ -226,7 +226,7 @@ station_jp_full <-
   dplyr::select(-c(temperature, precipitation))
 
 gg <- 
-  climate_jp_full_tmp %>%
+  climate_jp_full %>%
   dplyr::filter(month == "年") %>%
   dplyr::filter(precipitation != "///") %>%
   dplyr::filter(temperature   != "///") %>%
@@ -247,7 +247,7 @@ gg +
   geom_point(aes(temperature, latitude, colour = altitude)) + 
   theme_bw()
 
-climate_jp_full_tmp %>%
+climate_jp_full %>%
   dplyr::filter(month == "年") %>%
   dplyr::filter(precipitation != "///") %>%
   dplyr::filter(temperature   != "///") %>%
@@ -263,12 +263,12 @@ climate_jp
 
 
 cli_year <- 
-  climate_jp_full_tmp %>%
+  climate_jp_full %>%
   dplyr::filter(month == "年") %>%
   transmute(station_no, temperature = as.numeric(temperature))
 
 cli_mean <- 
-  climate_jp_full_tmp %>%
+  climate_jp_full %>%
   dplyr::filter(month != "年") %>%
   group_by(station_no) %>%
   dplyr::summarize(temperature = mean(as.numeric(temperature)))

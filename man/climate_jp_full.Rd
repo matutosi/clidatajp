@@ -3,7 +3,6 @@
 \docType{data}
 \name{climate_jp_full}
 \alias{climate_jp_full}
-\alias{climate_jp_full_tmp}
 \title{Climate normals of all stations in Japan}
 \format{
 A data frame with 21697 rows (1669 stations * 13 rows)
@@ -31,13 +30,9 @@ and 21 variables. All variables are character.
 \item{days_of_thunderstorm  }{Mean days of thunderstorm}
 \item{station_no            }{Station no. Can be joined to station_no of data(station_jp_full). Escaped by stringi::stri_escape_unicode().}
 }
-
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 21697 rows and 21 columns.
 }
 \usage{
 climate_jp_full
-
-climate_jp_full_tmp
 }
 \description{
 Monthly normals downloaded from Japan Meteorological Agency web pages

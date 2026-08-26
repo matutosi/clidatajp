@@ -184,12 +184,6 @@
 #'   dplyr::mutate_if(is.character, stringi::stri_unescape_unicode)
 "climate_jp_full"
 
-#' Intermediate data of data-raw/climate_jp_full.R.
-#' The contents are identical to climate_jp_full,
-#' and it will be removed in the future version.
-#' @rdname climate_jp_full
-"climate_jp_full_tmp"
-
 #' Downloaded tables of climate normals in Japan
 #'
 #' Raw tables downloaded from Japan Meteorological Agency web pages,
