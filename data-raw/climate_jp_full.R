@@ -15,18 +15,10 @@ data(station_jp_full)
   #   print()
   # station_jp_full
 
+  # detail_url() builds the same url and switches nml_sfc_ym / nml_amd_ym
+  # by the number of digits of station_no
 gen_url <- function(prec_no, station_no){
-  len <- stringr::str_length(station_no)
-  sfc_amd <- if(len == 5) "sfc" else "amd"
-  stringr::str_c(
-    "https://www.data.jma.go.jp/obd/stats/etrn/view/nml_",
-    sfc_amd,
-    "_ym.php?prec_no=",
-    prec_no,
-    "&block_no=",
-    station_no,
-    "&year=&month=&day=&view="
-  )
+  detail_url(prec_no, station_no, "nml_ym")
 }
 
   # 5桁：nml_sfc_ym

@@ -22,6 +22,9 @@ A station of detail climate data is specified by a pair of
 prec_no (area) and block_no (station).
 download_prec_no() downloads all prec_no,
 and download_block_no() downloads block_no of the area.
+Please use existing data by "data(station_jp_full)",
+which includes prec_no and station_no of all stations,
+if you do not need to renew them.
 For polite scraping, 5 sec interval is set in both functions.
 You can see web page as below.
 https://www.data.jma.go.jp/obd/stats/etrn/index.php

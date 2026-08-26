@@ -143,8 +143,9 @@
 #' because they include marks of 'JMA'
 #' ("@@", ")", "]" and "#" show quality of the value,
 #' "///" and "---" show no value).
-#' Use as_numeric_without_warnings() after removing the marks,
-#' or use download_detail(), which cleans the marks.
+#' Use clean_detail_value() to remove the marks,
+#' and to_numeric_when_all() or as_numeric_without_warnings() to convert.
+#' download_detail() does both for newly downloaded data.
 #' Stations of "AMeDAS" have no value in 11 of the columns,
 #' because only 10 items are observed.
 #' https://www.data.jma.go.jp/obd/stats/etrn/index.php

@@ -46,12 +46,13 @@ detail_url <- function(prec_no, block_no, item = "daily",
                        year = NULL, month = NULL, day = NULL){
   base <- "https://www.data.jma.go.jp/obd/stats/etrn/view/"
   php  <- detail_item(item, block_no)
+    # str_c() drops NULL, so NULL of year, month and day becomes empty
   query <-
     stringr::str_c("?prec_no=" , prec_no,
                    "&block_no=", block_no,
-                   "&year="    , null_to_empty(year),
-                   "&month="   , null_to_empty(month),
-                   "&day="     , null_to_empty(day),
+                   "&year="    , year,
+                   "&month="   , month,
+                   "&day="     , day,
                    "&view=")
   return(stringr::str_c(base, php, ".php", query))
 }
@@ -59,26 +60,29 @@ detail_url <- function(prec_no, block_no, item = "daily",
 #' @rdname detail_url
 #' @export
 detail_item <- function(item, block_no){
-  items <-
-    c("annually"    = "annually_s|annually_a",
-      "monthly"     = "monthly_s1|monthly_a1",
-      "monthly_all" = "monthly_s3|monthly_s3",
-      "daily"       = "daily_s1|daily_a1",
-      "hourly"      = "hourly_s1|hourly_a1",
-      "10min"       = "10min_s1|10min_a1",
-      "nml_ym"      = "nml_sfc_ym|nml_amd_ym",
-      "nml_daily"   = "nml_sfc_d|nml_amd_d",
-      "nml_season"  = "nml_sfc_season|nml_sfc_season")
+    # 1st column: "kansho", 2nd column: "AMeDAS"
+    # "monthly_all" and "nml_season" are available only for "kansho"
+  items <- rbind(
+    "annually"    = c("annually_s"    , "annually_a"),
+    "monthly"     = c("monthly_s1"    , "monthly_a1"),
+    "monthly_all" = c("monthly_s3"    , "monthly_s3"),
+    "daily"       = c("daily_s1"      , "daily_a1"),
+    "hourly"      = c("hourly_s1"     , "hourly_a1"),
+    "10min"       = c("10min_s1"      , "10min_a1"),
+    "nml_ym"      = c("nml_sfc_ym"    , "nml_amd_ym"),
+    "nml_daily"   = c("nml_sfc_d"     , "nml_amd_d"),
+    "nml_season"  = c("nml_sfc_season", "nml_sfc_season"))
     # item is treated as a name of php file when not in the list
-  if(!item %in% names(items)) return(item)
-  php    <- stringr::str_split(items[[item]], "\\|", simplify = TRUE)
-  kansho <- stringr::str_length(as.character(block_no)) >= 5
-  return(ifelse(kansho, php[1], php[2]))
+  if(!item %in% rownames(items)) return(item)
+  kansho <- block_type(block_no) == "kansho"
+  return(ifelse(kansho, items[item, 1], items[item, 2]))
 }
 
-null_to_empty <- function(x){
-  if(is.null(x)) return("")
-  return(x)
+  # Station type of 'JMA'.
+  # block_no of "kansho" (weather station) has 5 digits, "AMeDAS" has 4.
+block_type <- function(block_no){
+  kansho <- stringr::str_length(as.character(block_no)) >= 5
+  return(ifelse(kansho, "kansho", "amedas"))
 }
 
 #' Download detail climate data in Japan
@@ -107,7 +111,7 @@ download_detail <- function(url, as_numeric = TRUE){
   table <- detail_table(html)
   if(is.null(table)){
     message("No data table is found: ", url)
-    return(invisible(NULL))
+    return(NULL)
   }
   rows <- rvest::html_elements(table, "tr")
   is_header <-
@@ -117,19 +121,17 @@ download_detail <- function(url, as_numeric = TRUE){
              length(rvest::html_elements(x, "th")) >  0
            },
            logical(1))
-  contents <-
-    table %>%
-    rvest::html_table(header = FALSE) %>%
-    as.data.frame(stringsAsFactors = FALSE)
+    # html_table() returns a tibble of character columns
+  contents <- rvest::html_table(table, header = FALSE)
   if(nrow(contents) != length(rows)){
     message("Unexpected table structure: ", url)
-    return(invisible(NULL))
+    return(NULL)
   }
-  header <- contents[ is_header, , drop = FALSE]
-  values <- contents[!is_header, , drop = FALSE]
+  header <- contents[ is_header, ]
+  values <- contents[!is_header, ]
   if(nrow(values) == 0){
     message("No data is found: ", url)
-    return(invisible(NULL))
+    return(NULL)
   }
   colnames(values) <- detail_colnames(header)
   values <- lapply(values, clean_detail_value)
@@ -194,7 +196,7 @@ detail_colnames <- function(header){
 clean_detail_value <- function(x){
     # ")", "]" and "#" show quality of the value,
     # "--", "///" and multiplication sign show no value
-  no_value <- c("--", "///", stringi::stri_unescape_unicode("\\u00d7"), "")
+  no_value <- c("--", "///", "\u00d7", "")
   cleaned <-
     x %>%
     as.character() %>%
@@ -219,6 +221,9 @@ to_numeric_when_all <- function(x){
 #' prec_no (area) and block_no (station).
 #' download_prec_no() downloads all prec_no,
 #' and download_block_no() downloads block_no of the area.
+#' Please use existing data by "data(station_jp_full)",
+#' which includes prec_no and station_no of all stations,
+#' if you do not need to renew them.
 #' For polite scraping, 5 sec interval is set in both functions.
 #' You can see web page as below.
 #' https://www.data.jma.go.jp/obd/stats/etrn/index.php
@@ -237,19 +242,9 @@ to_numeric_when_all <- function(x){
 #' @export
 download_prec_no <- function(){
   url <- "https://www.data.jma.go.jp/obd/stats/etrn/select/prefecture00.php"
-  areas <- detail_areas(url)
-  if(is.null(areas)) return(invisible(NULL))
-  prec_no <-
-    areas %>%
-    rvest::html_attr("href") %>%
-    stringr::str_match("prec_no=([0-9]+)") %>%
-    `[`( , 2)
-  prec <-
-    tibble::tibble(prec_no = prec_no,
-                   area    = rvest::html_attr(areas, "alt")) %>%
-    stats::na.omit() %>%
-    dplyr::distinct()
-  return(prec)
+  prec <- detail_no(url, "prec_no=([0-9]+)")
+  if(is.null(prec)) return(NULL)
+  return(magrittr::set_colnames(prec, c("prec_no", "area")))
 }
 
 #' @rdname download_prec_no
@@ -259,22 +254,32 @@ download_block_no <- function(prec_no){
     stringr::str_c(
       "https://www.data.jma.go.jp/obd/stats/etrn/select/prefecture.php",
       "?prec_no=", prec_no, "&block_no=&year=&month=&day=&view=")
+  block <- detail_no(url, "block_no=([0-9a-zA-Z]+)")
+  if(is.null(block)) return(NULL)
+  block <-
+    block %>%
+    magrittr::set_colnames(c("block_no", "station")) %>%
+    dplyr::mutate("prec_no" := as.character(prec_no),
+                  "type"    := block_type(.data[["block_no"]])) %>%
+    dplyr::relocate("prec_no")
+  return(block)
+}
+
+  # Extract no (prec_no or block_no) and its name from "area" elements
+detail_no <- function(url, pattern){
   areas <- detail_areas(url)
-  if(is.null(areas)) return(invisible(NULL))
-  block_no <-
+  if(is.null(areas)) return(NULL)
+  no <-
     areas %>%
     rvest::html_attr("href") %>%
-    stringr::str_match("block_no=([0-9a-zA-Z]+)") %>%
+    stringr::str_match(pattern) %>%
     `[`( , 2)
-  block <-
-    tibble::tibble(prec_no  = as.character(prec_no),
-                   block_no = block_no,
-                   station  = rvest::html_attr(areas, "alt")) %>%
+  extracted <-
+    tibble::tibble(no   = no,
+                   name = rvest::html_attr(areas, "alt")) %>%
     stats::na.omit() %>%
-    dplyr::distinct() %>%
-    dplyr::mutate("type" :=
-      ifelse(stringr::str_length(.data[["block_no"]]) >= 5, "kansho", "amedas"))
-  return(block)
+    dplyr::distinct()
+  return(extracted)
 }
 
 detail_areas <- function(url){
