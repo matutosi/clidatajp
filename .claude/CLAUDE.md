@@ -19,9 +19,13 @@
   **`develop` の 4 コミットを `main` へ merge して push した** (fast-forward)．
   差分は README の導入手順・`str_remove()` 化・バグ修正・CLAUDE.md 追加．
 
+- 2026-08-27 06:39
+  **0.5.3 を CRAN へ提出した** (`devtools::submit_cran()`，メールの URL での確認まで完了)．
+  提出時の SHA は `60fcc66`．**返事が来るまでこのパッケージは触らない**．
+
 - 2026-08-27 06:30
   **win-builder の結果 (Status: OK) を確認し，`cran-comments.md` を仕上げた**．
-  これで 0.5.3 は**いつでも CRAN へ出せる状態** (残るは `devtools::submit_cran()` だけ)．
+  4 系統すべて 0 ERROR / 0 WARNING / 0 NOTE．
 
 - 2026-08-26 21:22
   **CI と外部サービスの check を一通り通した**．GitHub Actions の R-CMD-check は 5 環境すべて success，
@@ -61,12 +65,17 @@
 
 ### 次にやること
 
-- **【要操作】0.5.3 を CRAN へ提出する**．**準備はすべて整っている**．
-  提出は `devtools::submit_cran()` (提出後に届くメールで本人確認が要るので，実行はユーザ)．
-  - check は 4 系統とも **0 ERROR / 0 WARNING / 0 NOTE**:
-    手元 `--as-cran`・GitHub Actions 5 環境・R-hub 3 環境 (R-devel)・
-    win-builder R-devel (2026-08-26 提出，Status: OK)．
-  - `cran-comments.md` は上の 4 系統を記載済み (TODO は残っていない)．
+- **【返事待ち】0.5.3 を CRAN へ提出済み** (2026-08-27 06:37 JST，本人確認まで完了)．
+  提出時の SHA は `60fcc66` (`CRAN-SUBMISSION` に記録)．
+  **受理されるまでは，このパッケージを触らない**．
+- **受理されたら次をやる**:
+  1. `DESCRIPTION` を開発版へ戻す (`0.5.3.9000`)．`NEWS.md` に新しい見出しを起こす．
+  2. `0.5.3` のタグを打って GitHub の release を作る．
+  3. todo の優先順位表と `notes/projects.md` の扱いを見直す
+     (ecan・screenshot と同じく「区切りが来たら動かす」へ)．
+- **却下・修正依頼が来たら**，指摘に対応して `cran-comments.md` の
+  「Summary of the update」に対応内容を足してから出し直す
+  (2022-11 の graceful fail の対応が `tools/cran-comments_first.md` に残っている)．
 - **R-hub は v2 (GitHub Actions 方式)**．`.github/workflows/rhub.yaml` が既定ブランチにあり，
   `rhub::rhub_check(platforms = c("linux","macos","windows"))` で回す
   (**`platforms` を省くと非対話では落ちる**)．PowerShell から回すときは
