@@ -19,6 +19,11 @@
   **`develop` の 4 コミットを `main` へ merge して push した** (fast-forward)．
   差分は README の導入手順・`str_remove()` 化・バグ修正・CLAUDE.md 追加．
 
+- 2026-08-26 21:05
+  **gh-pages 方式への切り替えを最後まで通した**．Pages の配信元を `gh-pages` / (root) へ変更し，
+  https://matutosi.github.io/clidatajp/ が新しいサイト (詳細データ関数のページを含む) で配信されるのを確認．
+  旧 CI が main へ入れた docs のコミットは `-s ours` で取り込み，ローカルの `docs/` も削除した．
+
 - 2026-08-26 20:52
   **pkgdown の公開を gh-pages ブランチ方式に変えた**．main へ docs/ をコミットする形は
   CI のたびに各 PC で pull が要り Dropbox 同期とも食い違うため．`docs/` の追跡をやめ，
@@ -55,9 +60,12 @@
 - **pkgdown の公開は gh-pages ブランチ方式** (2026-08-26 に main / docs から変更)．
   `docs/` は追跡せず (`.gitignore`)，main へ push すると CI が建てて gh-pages へ配置する．
   **リポジトリには docs/ が入らないので，CI 後に `git pull` は要らない**．
-  screenshot・pivotea と同じ形．
-- 手で建て直すときは `pkgdown::build_site()` (結果はローカルだけに残る)．
+  GitHub の Pages 設定も `gh-pages` / (root) へ変更済み．screenshot・pivotea と同じ形．
+- **ローカルに `docs/` は残さない** (CI が建てるので不要)．
+  手元で見たいときだけ `pkgdown::build_site()` で作り，用が済んだら消す．
   **削除した topic のページは pkgdown が消さない**ので，`docs/` を消してから建て直すと確実
   (2026-08-26 に `climate_jp_full_tmp` のページが残った実例)．
+- **Dropbox がファイルを掴んでいると `git` の index 書き込みや `rm -rf docs` が失敗する**ことがある．
+  数秒おいてやり直せば通る (2026-08-26 に複数回発生)．
 - Dropbox がファイルを掴んでいると `pkgdown` の後片付けが `EBUSY` で落ちることがある
   (ビルド自体は完走している)．`vignettes/--find-assets.html` のような残骸が出たら消す．
