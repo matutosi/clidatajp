@@ -22,6 +22,11 @@
     [`download_block_no()`](https://matutosi.github.io/clidatajp/reference/download_prec_no.md)
     get numbers to specify a station.
 
+- Remove data
+
+  - `climate_jp_full_tmp`, which was an intermediate data and identical
+    to `climate_jp_full`. Use `climate_jp_full`.
+
 - Update installation instructions to use ‘remotes’ package.
 
 ## clidatajp 0.5.2

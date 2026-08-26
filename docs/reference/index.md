@@ -44,7 +44,6 @@ Yearly, monthly, daily, hourly and 10 minutes values of each station.
   [`world_climate`](https://matutosi.github.io/clidatajp/reference/climate_world.md)
   : Climate data in the world
 - [`climate_jp_full`](https://matutosi.github.io/clidatajp/reference/climate_jp_full.md)
-  [`climate_jp_full_tmp`](https://matutosi.github.io/clidatajp/reference/climate_jp_full.md)
   : Climate normals of all stations in Japan
 - [`mean_cli`](https://matutosi.github.io/clidatajp/reference/mean_cli.md)
   : Downloaded tables of climate normals in Japan

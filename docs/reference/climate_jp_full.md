@@ -13,8 +13,6 @@ https://www.data.jma.go.jp/obd/stats/etrn/index.php
 
 ``` r
 climate_jp_full
-
-climate_jp_full_tmp
 ```
 
 ## Format
@@ -108,9 +106,6 @@ variables. All variables are character.
 
   Station no. Can be joined to station_no of data(station_jp_full).
   Escaped by stringi::stri_escape_unicode().
-
-An object of class `tbl_df` (inherits from `tbl`, `data.frame`) with
-21697 rows and 21 columns.
 
 ## Examples
 
