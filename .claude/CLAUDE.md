@@ -19,6 +19,13 @@
   **`develop` の 4 コミットを `main` へ merge して push した** (fast-forward)．
   差分は README の導入手順・`str_remove()` 化・バグ修正・CLAUDE.md 追加．
 
+- 2026-08-27 07:15
+  **/simplify で詳細データ関数を整理した** (動作は不変)．詰め込み文字列・重複した官署判定・
+  ほぼ同じだった 2 関数・不要な null_to_empty と as.data.frame を除き，
+  返り値を bare NULL にそろえた．CI は同じツリーの二重 check をやめ，
+  README バッジ由来の "CMD" を WORDLIST へ (これで check は再び Status: OK)．
+  **develop のみ**．main へは受理後に merge する．
+
 - 2026-08-27 06:39
   **0.5.3 を CRAN へ提出した** (`devtools::submit_cran()`，メールの URL での確認まで完了)．
   提出時の SHA は `60fcc66`．**返事が来るまでこのパッケージは触らない**．
@@ -65,6 +72,8 @@
 
 ### 次にやること
 
+- **【注意】提出後に develop だけ先へ進めてある** (`/simplify` の整理と CI の修正)．
+  **main へ merge するのは CRAN の返事が来てから**．提出した版は `60fcc66` で凍っている．
 - **【返事待ち】0.5.3 を CRAN へ提出済み** (2026-08-27 06:37 JST，本人確認まで完了)．
   提出時の SHA は `60fcc66` (`CRAN-SUBMISSION` に記録)．
   **受理されるまでは，このパッケージを触らない**．
