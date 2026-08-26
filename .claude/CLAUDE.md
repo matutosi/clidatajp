@@ -19,6 +19,11 @@
   **`develop` の 4 コミットを `main` へ merge して push した** (fast-forward)．
   差分は README の導入手順・`str_remove()` 化・バグ修正・CLAUDE.md 追加．
 
+- 2026-08-26 19:13
+  **`R CMD check` を Status: OK にし，pkgdown を導入した**．`data/` の 4 データに Rd を書き
+  (WARNING 解消)，`spelling` を Suggests へ入れて `tests/spelling.R` を有効化
+  (`spell_check()` はエラー無し)．`_pkgdown.yml` を整えてサイトを `docs/` に生成した．
+
 - 2026-08-26 19:07
   **気象庁の詳細データを取得する関数を実装した** (NEWS の TODO を解消)．
   `detail_url()`・`download_detail()`・`download_prec_no()`・`download_block_no()` を追加．
@@ -31,9 +36,11 @@
 
 ### 次にやること
 
-- **【要判断】`R CMD check` の WARNING が 1 件残っている**．
-  `data/` の 4 つのデータ (`climate_jp_full`・`climate_jp_full_tmp`・`mean_cli`・`station_jp_full`) に
-  Rd が無い (2023 年に追加されたもので，今回の変更とは無関係)．
-  CRAN へ出すなら，**Rd を書く**か**`data/` から外す**かの判断が要る．
-- 0.5.3 を CRAN へ出すかは未定 (出すなら `cran-comments.md` の更新も要る)．
-- この PC には `spelling` パッケージが入っておらず，`devtools::spell_check()` は未実行．
+- **【要操作 (GitHub 側)】pkgdown サイトを公開するには，GitHub の Settings > Pages を
+  `main` / `docs` に設定する** (automater と同じやり方)．設定すると
+  https://matutosi.github.io/clidatajp/ で配信される．
+- **`climate_jp_full_tmp` は `climate_jp_full` と中身が同一**．Rd には
+  「将来の版で削除する」と書いたので，次の区切りで `data/` から外す．
+- 0.5.3 を CRAN へ出すかは未定 (出すなら `cran-comments.md` の更新が要る)．
+- **サイトは手で建て直す**．`R/` や README を直したら
+  `pkgdown::build_site()` を回して `docs/` ごとコミットする (GitHub Actions は入れていない)．
