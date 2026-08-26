@@ -25,13 +25,12 @@
     * Ubuntu 24.04, R-devel
     * macOS 15, R-devel
     * Windows Server 2025, R-devel
-* devtools::check_win_devel()  <!-- TODO: 結果メールを確認してから提出する -->
+* devtools::check_win_devel()
+    * Windows, R-devel (2026-08-24 r90445 ucrt)
 
 ## R CMD check results
 
-There were 0 ERRORs, 0 WARNINGs, and 0 NOTEs
-on local, GitHub Actions and R-hub.
-<!-- TODO: check_win_devel() の結果を確認し，この TODO 行を消してから提出する -->
+There were 0 ERRORs, 0 WARNINGs, and 0 NOTEs on all environments above.
 
 ## Downstream dependencies
 

@@ -19,10 +19,14 @@
   **`develop` の 4 コミットを `main` へ merge して push した** (fast-forward)．
   差分は README の導入手順・`str_remove()` 化・バグ修正・CLAUDE.md 追加．
 
+- 2026-08-27 06:30
+  **win-builder の結果 (Status: OK) を確認し，`cran-comments.md` を仕上げた**．
+  これで 0.5.3 は**いつでも CRAN へ出せる状態** (残るは `devtools::submit_cran()` だけ)．
+
 - 2026-08-26 21:22
   **CI と外部サービスの check を一通り通した**．GitHub Actions の R-CMD-check は 5 環境すべて success，
   R-hub v2 を導入して linux/macos/windows (R-devel) の 3 環境とも Status: OK，
-  win-builder (R-devel) へも提出済み (結果はメール待ち)．`cran-comments.md` に環境と結果を反映した．
+  win-builder (R-devel) へも提出した．`cran-comments.md` に環境と結果を反映した．
 
 - 2026-08-26 21:05
   **gh-pages 方式への切り替えを最後まで通した**．Pages の配信元を `gh-pages` / (root) へ変更し，
@@ -57,13 +61,12 @@
 
 ### 次にやること
 
-- **【要操作】0.5.3 を CRAN へ提出する**．提出は `devtools::submit_cran()`
-  (提出後に届くメールで本人確認が要るので，実行はユーザ)．
-  - **提出前に 1 つだけ残っている**: `check_win_devel()` の結果メール (2026-08-26 21:05 提出，
-    30 分ほどで `matutosi@gmail.com` に届く) を確認し，`cran-comments.md` の
-    **TODO コメント 2 行を消す**．
-  - 済んでいる check: 手元 `--as-cran`・GitHub Actions 5 環境・R-hub 3 環境 (R-devel)
-    のいずれも **0 ERROR / 0 WARNING / 0 NOTE**．
+- **【要操作】0.5.3 を CRAN へ提出する**．**準備はすべて整っている**．
+  提出は `devtools::submit_cran()` (提出後に届くメールで本人確認が要るので，実行はユーザ)．
+  - check は 4 系統とも **0 ERROR / 0 WARNING / 0 NOTE**:
+    手元 `--as-cran`・GitHub Actions 5 環境・R-hub 3 環境 (R-devel)・
+    win-builder R-devel (2026-08-26 提出，Status: OK)．
+  - `cran-comments.md` は上の 4 系統を記載済み (TODO は残っていない)．
 - **R-hub は v2 (GitHub Actions 方式)**．`.github/workflows/rhub.yaml` が既定ブランチにあり，
   `rhub::rhub_check(platforms = c("linux","macos","windows"))` で回す
   (**`platforms` を省くと非対話では落ちる**)．PowerShell から回すときは
