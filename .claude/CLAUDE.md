@@ -19,6 +19,11 @@
   **`develop` の 4 コミットを `main` へ merge して push した** (fast-forward)．
   差分は README の導入手順・`str_remove()` 化・バグ修正・CLAUDE.md 追加．
 
+- 2026-08-26 21:22
+  **CI と外部サービスの check を一通り通した**．GitHub Actions の R-CMD-check は 5 環境すべて success，
+  R-hub v2 を導入して linux/macos/windows (R-devel) の 3 環境とも Status: OK，
+  win-builder (R-devel) へも提出済み (結果はメール待ち)．`cran-comments.md` に環境と結果を反映した．
+
 - 2026-08-26 21:05
   **gh-pages 方式への切り替えを最後まで通した**．Pages の配信元を `gh-pages` / (root) へ変更し，
   https://matutosi.github.io/clidatajp/ が新しいサイト (詳細データ関数のページを含む) で配信されるのを確認．
@@ -52,11 +57,17 @@
 
 ### 次にやること
 
-- **【要操作】0.5.3 を CRAN へ提出する**．手元の `--as-cran` は 0 ERROR / 0 WARNING / 0 NOTE で
-  `cran-comments.md` も 0.5.3 向けに更新済み．提出は `devtools::submit_cran()`
+- **【要操作】0.5.3 を CRAN へ提出する**．提出は `devtools::submit_cran()`
   (提出後に届くメールで本人確認が要るので，実行はユーザ)．
-  出す前に `devtools::check_win_devel()` と rhub を回し，結果を `cran-comments.md` の
-  「Test environments」へ足すとよい (今は手元の Windows のみ)．
+  - **提出前に 1 つだけ残っている**: `check_win_devel()` の結果メール (2026-08-26 21:05 提出，
+    30 分ほどで `matutosi@gmail.com` に届く) を確認し，`cran-comments.md` の
+    **TODO コメント 2 行を消す**．
+  - 済んでいる check: 手元 `--as-cran`・GitHub Actions 5 環境・R-hub 3 環境 (R-devel)
+    のいずれも **0 ERROR / 0 WARNING / 0 NOTE**．
+- **R-hub は v2 (GitHub Actions 方式)**．`.github/workflows/rhub.yaml` が既定ブランチにあり，
+  `rhub::rhub_check(platforms = c("linux","macos","windows"))` で回す
+  (**`platforms` を省くと非対話では落ちる**)．PowerShell から回すときは
+  `$env:GITHUB_PAT = (gh auth token)` を先に入れる．
 - **pkgdown の公開は gh-pages ブランチ方式** (2026-08-26 に main / docs から変更)．
   `docs/` は追跡せず (`.gitignore`)，main へ push すると CI が建てて gh-pages へ配置する．
   **リポジトリには docs/ が入らないので，CI 後に `git pull` は要らない**．
