@@ -15,6 +15,11 @@
 
 ### 現在の状態
 
+- 2026-08-27 17:50
+  **0.5.3 が CRAN に受理された** (auto-check service より "on its way to CRAN"，
+  r-devel-linux-x86_64-debian-gcc と r-devel-windows-x86_64 の両方で Result: OK)．
+  提出した版は `60fcc66`．**これで「触らない」制限は解除**．受理後の後始末が残っている．
+
 - 2026-08-26 18:42
   **`develop` の 4 コミットを `main` へ merge して push した** (fast-forward)．
   差分は README の導入手順・`str_remove()` 化・バグ修正・CLAUDE.md 追加．
@@ -72,12 +77,9 @@
 
 ### 次にやること
 
-- **【注意】提出後に develop だけ先へ進めてある** (`/simplify` の整理と CI の修正)．
-  **main へ merge するのは CRAN の返事が来てから**．提出した版は `60fcc66` で凍っている．
-- **【返事待ち】0.5.3 を CRAN へ提出済み** (2026-08-27 06:37 JST，本人確認まで完了)．
-  提出時の SHA は `60fcc66` (`CRAN-SUBMISSION` に記録)．
-  **受理されるまでは，このパッケージを触らない**．
-- **受理されたら次をやる**:
+- **【受理済み 2026-08-27】0.5.3 は CRAN に受理された**．触らない制限は解除．
+  なお `/simplify` の整理と CI の修正は develop に入っている (develop `261310a` / main `ad6f14c`)．
+- **受理後にやること (未着手)**:
   1. `DESCRIPTION` を開発版へ戻す (`0.5.3.9000`)．`NEWS.md` に新しい見出しを起こす．
   2. `0.5.3` のタグを打って GitHub の release を作る．
   3. todo の優先順位表と `notes/projects.md` の扱いを見直す
