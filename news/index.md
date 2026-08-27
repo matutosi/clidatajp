@@ -2,6 +2,8 @@
 
 ## clidatajp 0.5.3
 
+CRAN release: 2026-08-26
+
 - 2026-08-26
 
 - Add functions
