@@ -15,6 +15,11 @@
 
 ### 現在の状態
 
+- 2026-08-27 18:05
+  **受理後の後始末を済ませた**．develop を main へ merge して push (`ad6f14c`→`f449451`)，
+  `DESCRIPTION` を `0.5.3.9000` へ戻し `NEWS.md` に開発版の見出しを起こし，
+  タグ `0.5.3` を提出時の `60fcc66` に打って GitHub の release を作成した．
+
 - 2026-08-27 17:50
   **0.5.3 が CRAN に受理された** (auto-check service より "on its way to CRAN"，
   r-devel-linux-x86_64-debian-gcc と r-devel-windows-x86_64 の両方で Result: OK)．
@@ -78,12 +83,10 @@
 ### 次にやること
 
 - **【受理済み 2026-08-27】0.5.3 は CRAN に受理された**．触らない制限は解除．
-  なお `/simplify` の整理と CI の修正は develop に入っている (develop `261310a` / main `ad6f14c`)．
-- **受理後にやること (未着手)**:
-  1. `DESCRIPTION` を開発版へ戻す (`0.5.3.9000`)．`NEWS.md` に新しい見出しを起こす．
-  2. `0.5.3` のタグを打って GitHub の release を作る．
-  3. todo の優先順位表と `notes/projects.md` の扱いを見直す
-     (ecan・screenshot と同じく「区切りが来たら動かす」へ)．
+  develop と main は `f449451` で揃っている．
+- **受理後の後始末は 2026-08-27 に完了**．merge・版戻し・タグ/release・
+  todo の `notes/projects.md` 更新まで済んだ (todo の優先順位表には元から載っていない)．
+- **次に動かすのは，区切りが来たとき**．当面このパッケージに予定は無い．
 - **却下・修正依頼が来たら**，指摘に対応して `cran-comments.md` の
   「Summary of the update」に対応内容を足してから出し直す
   (2022-11 の graceful fail の対応が `tools/cran-comments_first.md` に残っている)．
